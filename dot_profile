@@ -1,0 +1,48 @@
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ User Env
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export WORKSPACE="$HOME/Workspace"
+
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
+
+export PROFILERC="$HOME/.profile"
+export NVIMRC="$HOME/.config/nvim/init.vim"
+
+export BAT_THEME="OneHalfDark"
+
+# Java Application Blank Screen Fix
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Local Path
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export PATH="$PATH":"$HOME/.local/bin"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Neovim / Editor
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Rust / Cargo
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export PATH="$PATH":"$HOME/.cargo/bin"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ NodeJS / NPM
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export NPM_PACKAGES="$HOME/.npm-packages"
+export PATH="$PATH":"$NPM_PACKAGES/bin"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ PHP / Composer
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export PATH="$PATH":"$HOME/.config/composer/vendor/bin"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Go
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export GOPATH="$HOME/.go"
+export PATH="$PATH":"$HOME/.go/bin"

@@ -1,0 +1,7 @@
+sourceDir = "/home/zweimach/Workspace/dotfiles"
+
+[diff]
+format = "git"
+
+[sourceVCS]
+command = "git"

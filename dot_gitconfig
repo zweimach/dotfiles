@@ -1,0 +1,29 @@
+[user]
+email = zweimach@zweimach.org
+name = Ananda Umamil
+signkey = 163CE4CEA7F464B6
+
+[credential]
+helper = store
+
+[color]
+ui = auto
+
+[core]
+editor = nvim
+excludesfile = /home/zweimach/.gitignore
+
+[gpg]
+program = gpg
+
+[commit]
+gpgsign = true
+
+[filter "lfs"]
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+
+[pull]
+ff = only

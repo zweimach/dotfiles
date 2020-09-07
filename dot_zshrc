@@ -1,0 +1,112 @@
+#------------------------------
+# Plugin Manager
+#------------------------------
+source <(antibody init)
+antibody bundle <~/.zsh_plugins.txt
+
+#------------------------------
+# Prompt
+#------------------------------
+autoload -U promptinit
+promptinit
+
+neofetch
+
+#------------------------------
+# Keybindings
+#------------------------------
+typeset -g -A key
+
+key[Home]="${terminfo[khome]}"
+key[End]="${terminfo[kend]}"
+key[Backspace]="${terminfo[kbs]}"
+key[Delete]="${terminfo[kdch1]}"
+key[Up]="${terminfo[kcuu1]}"
+key[Down]="${terminfo[kcud1]}"
+key[Shift-Tab]="${terminfo[kcbt]}"
+
+bindkey -e
+[[ -n "${key[Home]}" ]] && bindkey -- "${key[Home]}" beginning-of-line
+[[ -n "${key[End]}" ]] && bindkey -- "${key[End]}" end-of-line
+[[ -n "${key[Backspace]}" ]] && bindkey -- "${key[Backspace]}" backward-delete-char
+[[ -n "${key[Delete]}" ]] && bindkey -- "${key[Delete]}" delete-char
+[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" history-substring-search-up
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" history-substring-search-down
+[[ -n "${key[Shift - Tab]}" ]] && bindkey -- "${key[Shift - Tab]}" reverse-menu-complete
+
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+	autoload -Uz add-zle-hook-widget
+	function zle_application_mode_start() { echoti smkx; }
+	function zle_application_mode_stop() { echoti rmkx; }
+	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+fi
+
+#------------------------------
+# Editor
+#------------------------------
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+
+#------------------------------
+# Browser
+#------------------------------
+export BROWSER="firefox"
+
+#------------------------------
+# Window Title
+#------------------------------
+case $TERM in
+termite|*xterm*|rxvt|rxvt-unicode|rxvt-256color|rxvt-unicode-256color|(dt|k|E)term)
+	precmd() {
+		print -Pn "\e]0;[%n@%M][%~]%#\a"
+	}
+	preexec() { print -Pn "\e]0;[%n@%M][%~]%# ($1)\a"; }
+	;;
+screen|screen-256color)
+	precmd() {
+		vcs_info
+		print -Pn "\e]83;title \"$1\"\a"
+		print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
+	}
+	preexec() {
+		print -Pn "\e]83;title \"$1\"\a"
+		print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a"
+	}
+	;;
+esac
+
+#------------------------------
+# History Configuration
+#------------------------------
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=5000
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=1
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=0
+
+#------------------------------
+# fzf & rg
+#------------------------------
+if type rg &>/dev/null; then
+	export FZF_DEFAULT_COMMAND='rg --files'
+	export FZF_DEFAULT_OPTS='-m --height 50% --border'
+fi
+
+#------------------------------
+# Tab Completion
+#------------------------------
+autoload -Uz compinit
+compinit
+
+autoload -U +X bashcompinit && bashcompinit
+
+kitty + complete setup zsh | source /dev/stdin
+
+#------------------------------
+# Other Configurations
+#------------------------------
+alias ls=ls --color=always
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic

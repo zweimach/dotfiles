@@ -1,0 +1,31 @@
+[
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.openRecent"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.gotoSymbol"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "-extension.vim_ctrl+h",
+    "when": "editorTextFocus && vim.active && vim.use<C-h> && !inDebugRepl"
+  },
+  {
+    "key": "f11",
+    "command": "workbench.action.toggleZenMode"
+  },
+  {
+    "key": "ctrl+k z",
+    "command": "-workbench.action.toggleZenMode"
+  },
+  {
+    "key": "ctrl+k z",
+    "command": "workbench.action.toggleFullScreen"
+  },
+  {
+    "key": "f11",
+    "command": "-workbench.action.toggleFullScreen"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "elm",
+    "go",
+    "haskell",
+    "html",
+    "json",
+    "jsonc",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "purescript",
+    "rust",
+    "scss",
+    "toml",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+    "vue"
+  ],
+  "coc.preferences.hoverTarget": "float",
+  "codeLens.enable": true,
+  "eslint.autoFixOnSave": true,
+  "languageserver": {
+    "elm": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"],
+      "initializationOptions": {
+        "elmAnalyseTrigger": "change"
+      }
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "filetypes": ["haskell", "lhaskell"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ]
+    },
+    "purescript": {
+      "command": "purescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["purescript"],
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    }
+  }
+}
