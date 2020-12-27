@@ -1,3 +1,6 @@
+.git
 .idea
 .vscode
+.cache
+.vim
 node_modules

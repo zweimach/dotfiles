@@ -12,6 +12,15 @@ ui = auto
 [core]
 editor = nvim
 excludesfile = /home/zweimach/.gitignore
+pager = delta
+
+[delta]
+line-numbers = true
+side-by-side = true
+syntax-theme = Dracula
+
+[diff]
+colorMoved = default
 
 [gpg]
 program = gpg
@@ -25,5 +34,29 @@ process = git-lfs filter-process
 required = true
 clean = git-lfs clean -- %f
 
+[log]
+mailmap = true
+
 [pull]
 ff = only
+
+[init]
+defaultBranch = main
+
+[pretty]
+pretty-oneline = "format:%C(auto)%h%d %s %Cblue[%cN] %Cgreen[%cr]"
+
+[alias]
+c = commit
+bc = branch
+d = diff
+dc = diff --cached
+go = checkout
+l = log
+lp = log --pretty=pretty-oneline
+lg = log --pretty=pretty-oneline --all --graph
+ll = log --pretty=pretty-oneline --numstat
+rb = rebase
+re = remote
+s = status
+ss = status -s

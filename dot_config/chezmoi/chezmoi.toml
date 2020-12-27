@@ -2,6 +2,11 @@ sourceDir = "/home/zweimach/Workspace/dotfiles"
 
 [diff]
 format = "git"
+pager = "delta"
+
+[merge]
+command = "nvim"
+args = "-d"
 
 [sourceVCS]
 command = "git"

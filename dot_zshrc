@@ -10,8 +10,6 @@ antibody bundle <~/.zsh_plugins.txt
 autoload -U promptinit
 promptinit
 
-neofetch
-
 #------------------------------
 # Keybindings
 #------------------------------
@@ -89,8 +87,8 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=0
 # fzf & rg
 #------------------------------
 if type rg &>/dev/null; then
-	export FZF_DEFAULT_COMMAND='rg --files'
-	export FZF_DEFAULT_OPTS='-m --height 50% --border'
+	export FZF_DEFAULT_COMMAND='rg --files --hidden'
+	export FZF_DEFAULT_OPTS='-m --height 70% --border=sharp --layout=reverse'
 fi
 
 #------------------------------
@@ -110,3 +108,20 @@ alias ls=ls --color=always
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+
+# opam configuration
+test -r /home/zweimach/.opam/opam-init/init.zsh && . /home/zweimach/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export WORKSPACE_DIR=~/Workspace/
+
+function code-open() {
+    exa -a1 $WORKSPACE_DIR | fzf | xargs -I{} code $WORKSPACE_DIR{}
+}
+
+function nvim-open() {
+    exa -a1 $WORKSPACE_DIR | fzf | xargs -I{} nvim $WORKSPACE_DIR{}
+}
+
+function open() {
+    cd "$WORKSPACE_DIR$(exa -a1 $WORKSPACE_DIR | fzf)"
+}

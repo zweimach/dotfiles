@@ -12,7 +12,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "off"
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -20,6 +21,7 @@
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
@@ -45,6 +47,9 @@
   "files.simpleDialog.enable": true,
   "gitlens.defaultDateFormat": "DD MMMM YYYY HH:mm",
   "gitlens.defaultDateShortFormat": "DD MMMM YYYY",
+  "gitlens.defaultGravatarsStyle": "retro",
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "material-icon-theme.activeIconPack": "react_redux",
   "material-icon-theme.files.associations": {
@@ -65,6 +70,5 @@
   "zenMode.hideLineNumbers": false,
   "zenMode.hideStatusBar": false,
   "window.zoomLevel": 0.7,
-  "workbench.colorTheme": "Dracula",
-  "go.formatTool": "goimports"
+  "workbench.colorTheme": "Dracula"
 }

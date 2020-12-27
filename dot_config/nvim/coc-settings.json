@@ -1,5 +1,7 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cpp",
     "css",
     "elm",
     "go",
@@ -10,7 +12,9 @@
     "javascript",
     "javascriptreact",
     "less",
+    "markdown",
     "purescript",
+    "python",
     "rust",
     "scss",
     "toml",
@@ -23,6 +27,10 @@
   "codeLens.enable": true,
   "eslint.autoFixOnSave": true,
   "languageserver": {
+    "dhall": {
+      "command": "dhall-lsp-server",
+      "filetypes": ["dhall"]
+    },
     "elm": {
       "command": "elm-language-server",
       "filetypes": ["elm"],
@@ -41,13 +49,25 @@
         "cabal.project",
         "package.yaml",
         "hie.yaml"
-      ]
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "formattingProvider": "ormolu",
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
+        }
+      }
     },
     "purescript": {
       "command": "purescript-language-server",
       "args": ["--stdio"],
       "filetypes": ["purescript"],
       "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    },
+    "zig": {
+      "command": "zls",
+      "filetypes": ["zig"]
     }
   }
 }

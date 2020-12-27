@@ -1,4 +1,6 @@
-### font
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Font
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 font pango: Fira Code Retina 10
 
 set $bg-color            #2f343f
@@ -8,8 +10,10 @@ set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 set $indicator-color     #00ff00
 
-### window colors
-###                     border              background         text                 indicator
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Window Color
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 client.focused          $bg-color           $bg-color          $text-color          $indicator-color #000000
 client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color #000000
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color #000000
@@ -24,7 +28,10 @@ smart_gaps on
 focus_follows_mouse no
 mouse_warping none
 
-### Variables
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Variables
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 set $mod Mod4
 
 set $left h
@@ -40,22 +47,30 @@ set $explorer nautilus
 set $ranger kitty -e ranger
 set $code code -n
 
-### Output configuration
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Output Config
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 output * bg /home/zweimach/.wallpaper.png fill
 
 for_window [window_role="About"] floating enable
 for_window [title="TelegramDesktop"] floating enable
-for_window [app_id="firefox" title="Firefox - Sharing Indicator"] kill
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
-### Idle configuration
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Idle Config
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 exec swayidle -w \
-    timeout 1500 'swaylock -f -c 000000' \
-    timeout 3000 'swaymsg "output * dpms off"' \
-    timeout 4500 'systemctl suspend' \
+    timeout 600 'swaylock -f -c 000000' \
+    timeout 1200 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock -f -c 000000'
 
-### Input configuration
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Input Config
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 input "1267:12375:ELAN1300:00_04F3:3057_Touchpad" {
     dwt enabled
     tap enabled
@@ -63,7 +78,10 @@ input "1267:12375:ELAN1300:00_04F3:3057_Touchpad" {
     middle_emulation enabled
 }
 
-### Key bindings
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Keymaps
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 floating_modifier $mod normal
 
 bindsym $mod+Return exec $term
@@ -130,7 +148,6 @@ mode "resize" {
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
@@ -155,13 +172,21 @@ bindsym $mod+Ctrl+f exec $browser
 bindsym $mod+Ctrl+d exec $reader
 bindsym $mod+Ctrl+c exec $code
 
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Status Bar
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 bar {
     swaybar_command waybar
 }
 
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Startup Programs
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 exec systemctl --user start mako.service &
-exec udiskie --tray &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec $term &
+
 
 include /etc/sway/config.d/*

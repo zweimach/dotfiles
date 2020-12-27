@@ -1,20 +1,17 @@
 [
   {
-    "key": "ctrl+r",
-    "command": "-workbench.action.openRecent"
+    "key": "ctrl+alt+f",
+    "command": "actions.find",
+    "when": "editorFocus || editorIsOpen"
   },
   {
-    "key": "ctrl+r",
-    "command": "-workbench.action.gotoSymbol"
+    "key": "ctrl+alt+h",
+    "command": "editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorIsOpen"
   },
   {
-    "key": "ctrl+h",
-    "command": "-extension.vim_ctrl+h",
-    "when": "editorTextFocus && vim.active && vim.use<C-h> && !inDebugRepl"
-  },
-  {
-    "key": "f11",
-    "command": "workbench.action.toggleZenMode"
+    "key": "ctrl+alt+o",
+    "command": "workbench.action.openRecent"
   },
   {
     "key": "ctrl+k z",
@@ -27,5 +24,9 @@
   {
     "key": "f11",
     "command": "-workbench.action.toggleFullScreen"
+  },
+  {
+    "key": "f11",
+    "command": "workbench.action.toggleZenMode"
   }
 ]
