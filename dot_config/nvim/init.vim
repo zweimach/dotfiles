@@ -1,8 +1,6 @@
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Package Manager
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-let vimplug=expand('~/.config/nvim/autoload/plug.vim')
-
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 
@@ -10,11 +8,10 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " ┃ Core Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'vim-airline/vim-airline'
-Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ LSP Packages
@@ -25,37 +22,47 @@ Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'coc-extensions/coc-svelte', {'do': 'yarn install --frozen-lockfile'}
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
 Plug 'antoinemadec/coc-fzf', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-flutter',  {'do': 'yarn install --frozen-lockfile'}
+Plug 'marlonfan/coc-phpls',  {'do': 'yarn install --frozen-lockfile'}
+
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Core Packages
+" ┃ Additional Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'preservim/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-sandwich'
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'sainnhe/edge'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ JavaScript Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 Plug 'maxmellon/vim-jsx-pretty',
 \ {
 \   'for': [
 \     'javascript',
-\     'javascript.jsx',
+\     'javascriptreact',
 \     'typescript',
-\     'typescript.tsx'
+\     'typescriptreact'
 \   ]
 \ }
 
@@ -63,7 +70,7 @@ Plug 'maxmellon/vim-jsx-pretty',
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ TypeScript Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -78,11 +85,16 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 
 
-
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Haskell Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Reason Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'reasonml-editor/vim-reason-plus', { 'for': ['reason'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -103,6 +115,30 @@ Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 Plug 'ziglang/zig.vim', { 'for': ['zig'] }
 
 
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Vue Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Svelte Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ ReScript Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'rescript-lang/vim-rescript', { 'for': ['rescript'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ LiveScript Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'wsdjeg/vim-livescript', { 'for': ['livescript'] }
+
+
 call plug#end()
 
 
@@ -115,26 +151,40 @@ set relativenumber
 set number
 set hidden
 set expandtab
+set autoindent
+set nosmartindent
+set nocindent
 set listchars=tab:>·,trail:~,extends:>,precedes:<,space:␣
 set list
 set tabstop=4
 set shiftwidth=4
-set cmdheight=2
+set cmdheight=1
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 set clipboard=unnamedplus
 set completeopt-=preview
+set formatoptions-=t
+set noshowmode
+set noswapfile
 set termguicolors
 
-colorscheme dracula
+filetype indent off
 
-let g:airline_theme = 'dracula'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_skip_empty_sections = 1
+let g:edge_style = 'neon'
+let g:edge_enable_italic = 1
+let g:edge_better_performance = 1
+
+colorscheme edge
+
+let g:EditorConfig_preserve_formatoptions = 1
+
+let g:airline_theme                        = 'edge'
+let g:airline#extensions#branch#enabled    = 1
+let g:airline#extensions#tabline#enabled   = 1
+let g:airline_skip_empty_sections          = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_section_c = '%t'
+let g:airline_section_c                    = '%t'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -158,27 +208,59 @@ let g:airline_symbols.branch                  = ''
 let g:airline_symbols.readonly                = ''
 let g:airline_symbols.linenr                  = ''
 
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Treesitter Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ JavaScript Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:javascript_plugin_flow = 1
+let g:javascript_plugin_flow  = 1
 let g:javascript_plugin_jsdoc = 1
-
-autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Haskell Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_quantification   = 1
+let g:haskell_enable_recursivedo      = 1
+let g:haskell_enable_arrowsyntax      = 1
 let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
-let g:haskell_backpack = 1
+let g:haskell_enable_typeroles        = 1
+let g:haskell_enable_static_pointers  = 1
+let g:haskell_backpack                = 1
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Vue Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+let g:vim_vue_plugin_use_typescript        = 1
+let g:vim_vue_plugin_use_sass              = 1
+let g:vim_vue_plugin_highlight_vue_keyword = 1
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Svelte Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+let g:vim_svelte_plugin_use_typescript = 1
+let g:vim_svelte_plugin_use_sass       = 1
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -189,7 +271,17 @@ nmap <silent> <C-j> :bnext<CR>
 nmap <silent> <A-j> :tabnext<CR>
 nmap <silent> <C-k> :bprev<CR>
 nmap <silent> <A-k> :tabprevious<CR>
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Explorer Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
 noremap <C-\> :NERDTreeToggle<CR>
+
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+autocmd BufWinEnter * silent NERDTreeMirror
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -324,4 +416,3 @@ nnoremap <silent><nowait> <space>y :<C-u>CocFzfList yank<cr>
 nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p :<C-u>CocFzfListResume<CR>
-

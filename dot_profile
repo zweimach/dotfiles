@@ -6,29 +6,19 @@ export WORKSPACE="$HOME/Workspace"
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
 
-export PROFILERC="$HOME/.profile"
-export NVIMRC="$HOME/.config/nvim/init.vim"
+export MOZ_ENABLE_WAYLAND=1
 
-# Java Application Blank Screen Fix
-export _JAVA_AWT_WM_NONREPARENTING=1
+export BROWSER="firefox"
+export EDITOR="nvim"
+export TERMINAL="kitty"
+
+export PATH="$PATH":"$HOME/.local/bin"
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Keyring
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Local Path
-# ┗━━━━━━━━━━━━━━━━━━━━━━━
-export PATH="$PATH":"$HOME/.local/bin"
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Neovim / Editor
-# ┗━━━━━━━━━━━━━━━━━━━━━━━
-export EDITOR="nvim"
-export VISUAL="$EDITOR"
-
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Haskell / Cabal
@@ -44,8 +34,7 @@ export PATH="$PATH":"$HOME/.cargo/bin"
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ NodeJS / NPM
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
-export NPM_PACKAGES="$HOME/.npm-packages"
-export PATH="$PATH":"$NPM_PACKAGES/bin"
+export PATH="$PATH":"$HOME/.npm/bin"
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ PHP / Composer

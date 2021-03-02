@@ -3,6 +3,10 @@
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 font pango: Fira Code Retina 10
 
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Window
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 set $bg-color            #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
@@ -10,10 +14,6 @@ set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 set $indicator-color     #00ff00
 
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Window Color
-# ┗━━━━━━━━━━━━━━━━━━━━━━━
 client.focused          $bg-color           $bg-color          $text-color          $indicator-color #000000
 client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color #000000
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color #000000
@@ -44,8 +44,7 @@ set $menu wofi -S drun
 set $reader evince
 set $browser firefox
 set $explorer nautilus
-set $ranger kitty -e ranger
-set $code code -n
+set $editor code -n
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -55,6 +54,7 @@ output * bg /home/zweimach/.wallpaper.png fill
 
 for_window [window_role="About"] floating enable
 for_window [title="TelegramDesktop"] floating enable
+for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
 for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 
@@ -80,34 +80,34 @@ input "1267:12375:ELAN1300:00_04F3:3057_Touchpad" {
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Keymaps
+# ┃ Keybinding
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 floating_modifier $mod normal
 
-bindsym $mod+Return exec $term
+bindsym $mod+Return  exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec $menu
+bindsym $mod+d       exec $menu
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit?' -b 'Yes' 'swaymsg exit'
 
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
 bindsym $mod+$right focus right
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$down  move down
+bindsym $mod+Shift+$up    move up
 bindsym $mod+Shift+$right move right
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 bindsym $mod+1 workspace 1
@@ -132,16 +132,16 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+f fullscreen
+bindsym $mod+b           splith
+bindsym $mod+v           splitv
+bindsym $mod+s           layout stacking
+bindsym $mod+w           layout tabbed
+bindsym $mod+e           layout toggle split
+bindsym $mod+f           fullscreen
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
-bindsym $mod+r mode "resize"
+bindsym $mod+space       focus mode_toggle
+bindsym $mod+a           focus parent
+bindsym $mod+r           mode "resize"
 
 mode "resize" {
     bindsym $left resize shrink width 10px
@@ -157,20 +157,18 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
-bindsym XF86AudioRaiseVolume exec pamixer -i 5
-bindsym XF86AudioLowerVolume exec pamixer -d 5
-bindsym XF86AudioMute        exec pamixer -t
-
+bindsym XF86AudioRaiseVolume  exec pamixer -i 5
+bindsym XF86AudioLowerVolume  exec pamixer -d 5
+bindsym XF86AudioMute         exec pamixer -t
 bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 bindsym XF86MonBrightnessUp   exec brightnessctl s +10%
 
 bindsym Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 
 bindsym $mod+Ctrl+e exec $explorer
-bindsym $mod+Ctrl+r exec $ranger
 bindsym $mod+Ctrl+f exec $browser
 bindsym $mod+Ctrl+d exec $reader
-bindsym $mod+Ctrl+c exec $code
+bindsym $mod+Ctrl+c exec $editor
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -184,8 +182,7 @@ bar {
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Startup Programs
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
-exec systemctl --user start mako.service &
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec $term &
 
 

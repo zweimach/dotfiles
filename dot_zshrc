@@ -1,18 +1,36 @@
-#------------------------------
-# Plugin Manager
-#------------------------------
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ History
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=5000
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=1
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=0
+
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Plugin
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 source <(antibody init)
 antibody bundle <~/.zsh_plugins.txt
 
-#------------------------------
-# Prompt
-#------------------------------
-autoload -U promptinit
-promptinit
 
-#------------------------------
-# Keybindings
-#------------------------------
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Function & Completion
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+autoload -Uz compinit
+compinit
+
+autoload -U +X bashcompinit
+bashcompinit
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Keybinding
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 typeset -g -A key
 
 key[Home]="${terminfo[khome]}"
@@ -40,20 +58,10 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-#------------------------------
-# Editor
-#------------------------------
-export EDITOR="nvim"
-export VISUAL="$EDITOR"
 
-#------------------------------
-# Browser
-#------------------------------
-export BROWSER="firefox"
-
-#------------------------------
-# Window Title
-#------------------------------
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Window Title
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 case $TERM in
 termite|*xterm*|rxvt|rxvt-unicode|rxvt-256color|rxvt-unicode-256color|(dt|k|E)term)
 	precmd() {
@@ -74,54 +82,30 @@ screen|screen-256color)
 	;;
 esac
 
-#------------------------------
-# History Configuration
-#------------------------------
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=5000
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=1
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=0
 
-#------------------------------
-# fzf & rg
-#------------------------------
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ fzf & rg
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 if type rg &>/dev/null; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden'
 	export FZF_DEFAULT_OPTS='-m --height 70% --border=sharp --layout=reverse'
 fi
 
-#------------------------------
-# Tab Completion
-#------------------------------
-autoload -Uz compinit
-compinit
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 
-autoload -U +X bashcompinit && bashcompinit
 
-kitty + complete setup zsh | source /dev/stdin
-
-#------------------------------
-# Other Configurations
-#------------------------------
-alias ls=ls --color=always
-
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-
-# opam configuration
-test -r /home/zweimach/.opam/opam-init/init.zsh && . /home/zweimach/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-export WORKSPACE_DIR=~/Workspace/
-
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Others
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 function code-open() {
-    exa -a1 $WORKSPACE_DIR | fzf | xargs -I{} code $WORKSPACE_DIR{}
+    ls -a1 $WORKSPACE | fzf | xargs -I{} code $WORKSPACE{}
 }
 
 function nvim-open() {
-    exa -a1 $WORKSPACE_DIR | fzf | xargs -I{} nvim $WORKSPACE_DIR{}
+    ls -a1 $WORKSPACE | fzf | xargs -I{} nvim $WORKSPACE{}
 }
 
 function open() {
-    cd "$WORKSPACE_DIR$(exa -a1 $WORKSPACE_DIR | fzf)"
+    cd "$WORKSPACE/$(exa -a1 $WORKSPACE | fzf)"
 }

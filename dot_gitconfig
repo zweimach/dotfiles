@@ -11,13 +11,13 @@ ui = auto
 
 [core]
 editor = nvim
-excludesfile = /home/zweimach/.gitignore
+excludesfile = ~/.gitignore
 pager = delta
 
 [delta]
 line-numbers = true
-side-by-side = true
-syntax-theme = Dracula
+side-by-side = false
+syntax-theme = OneHalfDark
 
 [diff]
 colorMoved = default
@@ -44,19 +44,30 @@ ff = only
 defaultBranch = main
 
 [pretty]
-pretty-oneline = "format:%C(auto)%h%d %s %Cblue[%cN] %Cgreen[%cr]"
+custom-oneline = "format:%C(auto)%h %Cblue[%aN] %Cgreen[%ar] %C(auto)%s%d"
 
 [alias]
+a = add
 c = commit
-bc = branch
 d = diff
+f = fetch
+l = log
+s = status -M
+aa = add -A
+bc = branch
+cl = clone
 dc = diff --cached
 go = checkout
-l = log
-lp = log --pretty=pretty-oneline
-lg = log --pretty=pretty-oneline --all --graph
-ll = log --pretty=pretty-oneline --numstat
+lc = log --format=custom-oneline
+lg = log --format=custom-oneline --all --graph
+pl = pull -ap
+pr = pull -r
+pu = push
 rb = rebase
 re = remote
-s = status
-ss = status -s
+rl = reflog
+rs = restore
+sh = stash
+ss = status -sM
+so = show
+sw = switch

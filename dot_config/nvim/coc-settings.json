@@ -3,25 +3,31 @@
     "c",
     "cpp",
     "css",
+    "dart",
     "elm",
     "go",
     "haskell",
     "html",
+    "java",
     "json",
     "jsonc",
     "javascript",
     "javascriptreact",
     "less",
     "markdown",
+    "php",
     "purescript",
     "python",
+    "rescript",
     "rust",
     "scss",
+    "svelte",
     "toml",
     "typescript",
     "typescriptreact",
     "yaml",
-    "vue"
+    "vue",
+    "zig"
   ],
   "coc.preferences.hoverTarget": "float",
   "codeLens.enable": true,
@@ -64,6 +70,17 @@
       "args": ["--stdio"],
       "filetypes": ["purescript"],
       "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    },
+    "racket": {
+      "command": "racket",
+      "args": ["--lib", "racket-langserver"],
+      "filetypes": ["scheme"]
+    },
+    "rescript": {
+      "module": "~/.config/nvim/plugged/vim-rescript/rescript-vscode/extension/server/out/server.js",
+      "args": ["--node-ipc"],
+      "filetypes": ["rescript"],
+      "rootPatterns": ["bsconfig.json"]
     },
     "zig": {
       "command": "zls",
