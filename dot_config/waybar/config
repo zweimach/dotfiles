@@ -97,7 +97,7 @@
     "tooltip": false
   },
   "network": {
-    "interface": "wlp2s0",
+    "interface": "wlp*s0",
     "format-wifi": " {signalStrength:2}% {essid}",
     "format-disconnected": "",
     "max-length": 50,

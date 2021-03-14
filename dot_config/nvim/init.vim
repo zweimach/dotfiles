@@ -19,6 +19,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
@@ -171,13 +172,14 @@ set termguicolors
 
 filetype indent off
 
-let g:edge_style = 'neon'
-let g:edge_enable_italic = 1
-let g:edge_better_performance = 1
+let g:edge_style                   = 'neon'
+let g:edge_enable_italic           = 1
+let g:edge_disable_italic_comment  = 1
+let g:edge_better_performance      = 1
 
 colorscheme edge
 
-let g:EditorConfig_preserve_formatoptions = 1
+let g:EditorConfig_preserve_formatoptions  = 1
 
 let g:airline_theme                        = 'edge'
 let g:airline#extensions#branch#enabled    = 1

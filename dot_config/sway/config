@@ -39,19 +39,17 @@ set $down j
 set $up k
 set $right l
 
-set $term kitty
-set $menu wofi -S drun
-set $reader evince
-set $browser firefox
-set $explorer nautilus
-set $editor code -n
+set $term $TERMINAL
+set $menu $MENU -S drun
+set $reader $READER
+set $browser $BROWSER
+set $explorer $TERMINAL -e $EXPLORER
+set $editor $TERMINAL -e $EDITOR
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Output Config
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
-output * bg /home/zweimach/.wallpaper.png fill
-
 for_window [window_role="About"] floating enable
 for_window [title="TelegramDesktop"] floating enable
 for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
@@ -72,6 +70,13 @@ exec swayidle -w \
 # ┃ Input Config
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 input "1267:12375:ELAN1300:00_04F3:3057_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input "1267:12527:ELAN1301:00_04F3:30EF_Touchpad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
@@ -182,7 +187,6 @@ bar {
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Startup Programs
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec $term &
 
 

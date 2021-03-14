@@ -23,7 +23,7 @@ syntax-theme = OneHalfDark
 colorMoved = default
 
 [gpg]
-program = gpg
+program = gpg2
 
 [commit]
 gpgsign = true

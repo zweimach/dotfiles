@@ -91,9 +91,6 @@ if type rg &>/dev/null; then
 	export FZF_DEFAULT_OPTS='-m --height 70% --border=sharp --layout=reverse'
 fi
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Others
@@ -107,5 +104,5 @@ function nvim-open() {
 }
 
 function open() {
-    cd "$WORKSPACE/$(exa -a1 $WORKSPACE | fzf)"
+    cd "$WORKSPACE/$(ls -1 $WORKSPACE | fzf)"
 }

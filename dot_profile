@@ -3,22 +3,18 @@
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 export WORKSPACE="$HOME/Workspace"
 
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_TYPE=wayland
-
+export XDG_CURRENT_DESKTOP="sway"
 export MOZ_ENABLE_WAYLAND=1
 
-export BROWSER="firefox"
+export SHELL="/bin/zsh"
+export TERMINAL="alacritty"
 export EDITOR="nvim"
-export TERMINAL="kitty"
+export BROWSER="firefox"
+export EXPLORER="lf"
+export READER="zathura"
+export MENU="wofi"
 
 export PATH="$PATH":"$HOME/.local/bin"
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Keyring
-# ┗━━━━━━━━━━━━━━━━━━━━━━━
-eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Haskell / Cabal
