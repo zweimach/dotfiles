@@ -59,7 +59,7 @@ cl = clone
 dc = diff --cached
 go = checkout
 lc = log --format=custom-oneline
-lg = log --format=custom-oneline --all --graph
+lg = log --format=custom-oneline --branches --remotes --tags --graph
 pl = pull -ap
 pr = pull -r
 pu = push

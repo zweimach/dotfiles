@@ -16,28 +16,23 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ LSP Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-Plug 'coc-extensions/coc-svelte', {'do': 'yarn install --frozen-lockfile'}
-Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
-Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
-Plug 'antoinemadec/coc-fzf', {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-flutter',  {'do': 'yarn install --frozen-lockfile'}
-Plug 'marlonfan/coc-phpls',  {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim',                    {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf',                 {'branch': 'release'}
+Plug 'neoclide/coc-css',                     {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-json',                    {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-yaml',                    {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-html',                    {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-prettier',                {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-eslint',                  {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-stylelint',               {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-vetur',                   {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-tsserver',                {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-yank',                    {'do': 'npm install --no-package-lock'}
+Plug 'coc-extensions/coc-svelte',            {'do': 'npm install --no-package-lock'}
+Plug 'rodrigore/coc-tailwind-intellisense',  {'do': 'npm install --no-package-lock'}
+Plug 'clangd/coc-clangd',                    {'do': 'npm install --no-package-lock'}
+Plug 'fannheyward/coc-rust-analyzer',        {'do': 'npm install --no-package-lock'}
+Plug 'josa42/coc-go',                        {'do': 'npm install --no-package-lock'}
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -93,6 +88,12 @@ Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Idris Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'edwinb/idris2-vim', { 'for': ['idris'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Reason Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'reasonml-editor/vim-reason-plus', { 'for': ['reason'] }
@@ -102,6 +103,12 @@ Plug 'reasonml-editor/vim-reason-plus', { 'for': ['reason'] }
 " ┃ PureScript Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'purescript-contrib/purescript-vim', { 'for': ['purescript'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Dhall Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'vmchale/dhall-vim', { 'for': ['dhall'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -222,12 +229,15 @@ let g:gitgutter_sign_modified_removed = '<'
 " ┃ Treesitter Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup({
   ensure_installed = "all",
   highlight = {
     enable = true,
   },
-}
+  indent = {
+    enable = true
+  }
+})
 EOF
 
 
