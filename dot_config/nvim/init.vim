@@ -41,10 +41,8 @@ Plug 'yaegassy/coc-volar',                   {'do': 'npm install --no-package-lo
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Additional Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'PhilRunninger/nerdtree-visual-selection'
-Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-sandwich'
@@ -224,6 +222,7 @@ let g:airline#extensions#tabline#enabled   = 1
 let g:airline_skip_empty_sections          = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_section_c                    = '%t'
+let g:airline_section_z                    = 'ln:%l/%L col:%c'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -231,12 +230,6 @@ endif
 
 let g:airline#extensions#branch#prefix        = '⤴'
 let g:airline#extensions#readonly#symbol      = '⊘'
-let g:airline#extensions#linecolumn#prefix    = '¶'
-let g:airline#extensions#paste#symbol         = 'ρ'
-let g:airline_symbols.paste                   = 'ρ'
-let g:airline_symbols.paste                   = 'Þ'
-let g:airline_symbols.paste                   = '∥'
-let g:airline_symbols.whitespace              = 'Ξ'
 let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_left_sep                        = ''
@@ -245,7 +238,6 @@ let g:airline_right_sep                       = ''
 let g:airline_right_alt_sep                   = ''
 let g:airline_symbols.branch                  = ''
 let g:airline_symbols.readonly                = ''
-let g:airline_symbols.linenr                  = ''
 
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_added = '+'
@@ -308,22 +300,113 @@ let g:vim_svelte_plugin_use_sass       = 1
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Keymap Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-nnoremap <C-p> :Files <CR>
-nmap <silent> <C-j> :bnext<CR>
-nmap <silent> <A-j> :tabnext<CR>
-nmap <silent> <C-k> :bprev<CR>
-nmap <silent> <A-k> :tabprevious<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-j> :bnext<CR>
+nnoremap <silent> <A-j> :tabnext<CR>
+nnoremap <silent> <C-k> :bprev<CR>
+nnoremap <silent> <A-k> :tabprevious<CR>
+nnoremap <silent> <C-l> :nohlsearch<Bar>diffupdate<CR><C-l>
+nnoremap <silent> Y y$
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Explorer Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-noremap <C-\> :NERDTreeToggle<CR>
+let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
+let g:nvim_tree_gitignore = 0
+let g:nvim_tree_quit_on_open = 0
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_hide_dotfiles = 0
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_root_folder_modifier = ':~'
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_group_empty = 1
+let g:nvim_tree_disable_window_picker = 1
+let g:nvim_tree_icon_padding = ' '
+let g:nvim_tree_symlink_arrow = ' >> '
+let g:nvim_tree_respect_buf_cwd = 1
+let g:nvim_tree_create_in_closed_folder = 0
+let g:nvim_tree_refresh_wait = 500
+let g:nvim_tree_window_picker_exclude = {
+\   'filetype': [
+\     'notify',
+\     'packer',
+\     'qf'
+\   ],
+\   'buftype': [
+\     'terminal'
+\   ]
+\ }
+let g:nvim_tree_special_files = {
+\   'README.md': 1,
+\   'Makefile': 1,
+\   'MAKEFILE': 1
+\ }
+let g:nvim_tree_show_icons = {
+\   'git': 1,
+\   'folders': 1,
+\   'files': 1,
+\   'folder_arrows': 1,
+\ }
+let g:nvim_tree_icons = {
+\   'default': '',
+\   'symlink': '',
+\   'git': {
+\     'unstaged': "✗",
+\     'staged': "✓",
+\     'unmerged': "",
+\     'renamed': "➜",
+\     'untracked': "★",
+\     'deleted': "",
+\     'ignored': "◌"
+\     },
+\   'folder': {
+\     'arrow_open': "",
+\     'arrow_closed': "",
+\     'default': "",
+\     'open': "",
+\     'empty': "",
+\     'empty_open': "",
+\     'symlink': "",
+\     'symlink_open': "",
+\   }
+\ }
 
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+lua <<EOF
+require('nvim-tree').setup({
+  disable_netrw = true,
+  hijack_netrw = true,
+  open_on_setup = false,
+  auto_close = false,
+  open_on_tab = false,
+  hijack_cursor = true,
+  update_cwd = true,
+  diagnostics = {
+    enable = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable = true,
+  },
+  view = {
+    width = 40,
+    side = 'left',
+    auto_resize = false
+  }
+})
+EOF
 
-autocmd BufWinEnter * silent NERDTreeMirror
+nnoremap <silent> <C-\> :NvimTreeToggle<CR>
+nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
+nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
+
+highlight NvimTreeFolderIcon guibg=blue
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
