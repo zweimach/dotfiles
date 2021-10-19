@@ -33,7 +33,7 @@ zle -N self-insert url-quote-magic
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 typeset -g -A key
 
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+if ((${+terminfo[smkx]})) && ((${+terminfo[rmkx]})); then
 	function zle-line-init() {
 		echoti smkx
 	}
@@ -74,13 +74,13 @@ bindkey '^[[1;5D' backward-word
 # ┃ Window Title
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 case $TERM in
-termite|*xterm*|rxvt|rxvt-unicode|rxvt-256color|rxvt-unicode-256color|(dt|k|E)term)
+termite | *xterm* | rxvt | rxvt-unicode | rxvt-256color | rxvt-unicode-256color | dterm | kterm | Eterm)
 	precmd() {
 		print -Pn "\e]0;[%n@%M][%~]%#\a"
 	}
 	preexec() { print -Pn "\e]0;[%n@%M][%~]%# ($1)\a"; }
 	;;
-screen|screen-256color)
+screen | screen-256color)
 	precmd() {
 		vcs_info
 		print -Pn "\e]83;title \"$1\"\a"
@@ -103,14 +103,14 @@ if type rg &>/dev/null; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
 
-test -r /usr/share/fzf/key-bindings.zsh && . /usr/share/fzf/key-bindings.zsh > /dev/null 2> /dev/null || true
-test -r /usr/share/fzf/completion.zsh && . /usr/share/fzf/completion.zsh > /dev/null 2> /dev/null || true
-test -r /usr/share/doc/fzf/key-bindings.zsh && . /usr/share/doc/fzf/key-bindings.zsh > /dev/null 2> /dev/null || true
-test -r /usr/share/doc/fzf/completion.zsh && . /usr/share/doc/fzf/completion.zsh > /dev/null 2> /dev/null || true
+test -r /usr/share/fzf/key-bindings.zsh && . /usr/share/fzf/key-bindings.zsh >/dev/null 2>/dev/null || true
+test -r /usr/share/fzf/completion.zsh && . /usr/share/fzf/completion.zsh >/dev/null 2>/dev/null || true
+test -r /usr/share/doc/fzf/key-bindings.zsh && . /usr/share/doc/fzf/key-bindings.zsh >/dev/null 2>/dev/null || true
+test -r /usr/share/doc/fzf/completion.zsh && . /usr/share/doc/fzf/completion.zsh >/dev/null 2>/dev/null || true
 
 fzf-workspace-widget() {
 	local cmd="${FZF_ALT_C_COMMAND:-"command ls -1 $WORKSPACE"}"
-	setopt localoptions pipefail no_aliases 2> /dev/null
+	setopt localoptions pipefail no_aliases 2>/dev/null
 	local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
 	if [[ -z "$dir" ]]; then
 		zle redisplay
@@ -131,4 +131,4 @@ bindkey '\eo' fzf-workspace-widget
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Others
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
-test -r ~/.opam/opam-init/init.zsh && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r ~/.opam/opam-init/init.zsh && source ~/.opam/opam-init/init.zsh >/dev/null 2>/dev/null || true
