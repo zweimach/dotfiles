@@ -1,12 +1,15 @@
 {
+  "clangd.semanticHighlighting": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "c",
+    "clojure",
     "cpp",
     "css",
     "dart",
     "dhall",
     "elm",
     "go",
+    "graphql",
     "haskell",
     "html",
     "java",
@@ -16,11 +19,14 @@
     "javascriptreact",
     "less",
     "markdown",
+    "ocaml",
     "php",
     "purescript",
     "python",
+    "racket",
     "rescript",
     "rust",
+    "scheme",
     "scss",
     "svelte",
     "toml",
@@ -31,8 +37,27 @@
     "zig"
   ],
   "codeLens.enable": true,
+  "diagnostic.floatConfig": {
+    "maxHeight": 64
+  },
   "eslint.autoFixOnSave": true,
+  "hover.floatConfig": {
+    "maxHeight": 64
+  },
+  "go.goplsOptions": {
+    "gofumpt": true,
+    "staticcheck": true,
+    "semanticTokens": true
+  },
+  "javascript.implementationsCodeLens.enable": false,
+  "javascript.referencesCodeLens.enable": false,
   "languageserver": {
+    "clojure": {
+      "command": "clojure-lsp",
+      "filetypes": ["clojure"],
+      "rootPatterns": ["project.clj"],
+      "additionalSchemes": ["jar", "zipfile"]
+    },
     "dhall": {
       "command": "dhall-lsp-server",
       "filetypes": ["dhall"]
@@ -40,10 +65,27 @@
     "elm": {
       "command": "elm-language-server",
       "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"],
-      "initializationOptions": {
-        "elmAnalyseTrigger": "change"
-      }
+      "rootPatterns": ["elm.json"]
+    },
+    "flow": {
+      "command": "flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "requireRootPattern": true,
+      "rootPatterns": [".flowconfig"]
+    },
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": [
+        "graphql",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+      ],
+      "requireRootPattern": true,
+      "rootPatterns": [".graphqlrc", ".graphqlrc.*", "graphql.config.*"]
     },
     "haskell": {
       "command": "haskell-language-server-wrapper",
@@ -51,30 +93,32 @@
       "filetypes": ["haskell", "lhaskell"],
       "rootPatterns": [
         "*.cabal",
-        "stack.yaml",
         "cabal.project",
+        "stack.yaml",
         "package.yaml",
         "hie.yaml"
       ],
       "initializationOptions": {
         "languageServerHaskell": {
-          "formattingProvider": "ormolu",
-          "hlintOn": true,
-          "maxNumberOfProblems": 10,
-          "completionSnippetsOn": true
+          "formattingProvider": "fourmolu"
         }
       }
+    },
+    "ocaml": {
+      "command": "opam",
+      "args": ["config", "exec", "--", "ocamllsp"],
+      "filetypes": ["ocaml", "reason"]
     },
     "purescript": {
       "command": "purescript-language-server",
       "args": ["--stdio"],
       "filetypes": ["purescript"],
-      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+      "rootPatterns": ["psc-package.json", "spago.dhall"]
     },
     "racket": {
       "command": "racket",
       "args": ["--lib", "racket-langserver"],
-      "filetypes": ["scheme"]
+      "filetypes": ["racket", "scheme"]
     },
     "rescript": {
       "module": "~/.config/nvim/plugged/vim-rescript/server/out/server.js",
@@ -87,5 +131,43 @@
       "filetypes": ["zig"]
     }
   },
-  "tailwindCSS.experimental.showPixelValues": true
+  "prettier.disableLanguages": [],
+  "python.formatting.provider": "black",
+  "rust-analyzer.highlighting.strings": true,
+  "rust-analyzer.lens.methodReferences": false,
+  "rust-analyzer.lens.implementations": false,
+  "rust-analyzer.lens.references": false,
+  "suggest.completionItemKindLabels": {
+    "method": "  ",
+    "function": "  ",
+    "variable": "[]",
+    "field": "  ",
+    "typeParameter": "<>",
+    "constant": "  ",
+    "class": " פּ ",
+    "interface": " 蘒",
+    "struct": "  ",
+    "event": "  ",
+    "operator": "  ",
+    "module": "  ",
+    "property": "  ",
+    "enum": " 練",
+    "reference": "  ",
+    "keyword": "  ",
+    "file": "  ",
+    "folder": " ﱮ ",
+    "color": "  ",
+    "unit": " 塞 ",
+    "snippet": "  ",
+    "text": "  ",
+    "constructor": "  ",
+    "value": "  ",
+    "enumMember": "  "
+  },
+  "tailwindCSS.experimental.showPixelValues": true,
+  "tailwindCSS.validate": true,
+  "typescript.implementationsCodeLens.enable": false,
+  "typescript.referencesCodeLens.enable": false,
+  "volar.formatting.enable": false,
+  "svelte.enable-ts-plugin": true
 }

@@ -10,7 +10,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'vim-airline/vim-airline'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -18,21 +18,24 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'neoclide/coc.nvim',                    {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf',                 {'branch': 'release'}
-Plug 'neoclide/coc-css',                     {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-json',                    {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-yaml',                    {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-html',                    {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-prettier',                {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-eslint',                  {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-stylelint',               {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-vetur',                   {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-tsserver',                {'do': 'npm install --no-package-lock'}
-Plug 'neoclide/coc-yank',                    {'do': 'npm install --no-package-lock'}
-Plug 'coc-extensions/coc-svelte',            {'do': 'npm install --no-package-lock'}
-Plug 'rodrigore/coc-tailwind-intellisense',  {'do': 'npm install --no-package-lock'}
-Plug 'clangd/coc-clangd',                    {'do': 'npm install --no-package-lock'}
-Plug 'fannheyward/coc-rust-analyzer',        {'do': 'npm install --no-package-lock'}
-Plug 'josa42/coc-go',                        {'do': 'npm install --no-package-lock'}
+Plug 'neoclide/coc-css',                     {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-json',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-yaml',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-html',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-prettier',                {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-eslint',                  {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-stylelint',               {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-tsserver',                {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-yank',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'fannheyward/coc-rust-analyzer',        {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'fannheyward/coc-pyright',              {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'fannheyward/coc-deno',                 {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'clangd/coc-clangd',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'coc-extensions/coc-svelte',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'rodrigore/coc-tailwind-intellisense',  {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'josa42/coc-go',                        {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'xiyaowong/coc-sumneko-lua',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'yaegassy/coc-volar',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -84,7 +87,7 @@ Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Haskell Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
+Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell', 'cabal'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -142,9 +145,33 @@ Plug 'rescript-lang/vim-rescript', { 'for': ['rescript'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ GraphQL Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'jparise/vim-graphql', { 'for': ['graphql'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Racket Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'wlangstroth/vim-racket', { 'for': ['racket', 'scheme' ] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ LiveScript Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'wsdjeg/vim-livescript', { 'for': ['livescript'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Vala Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'arrufat/vala.vim', { 'for': ['vala'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ OOC Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'fasterthanlime/ooc.vim', { 'for': ['ooc'] }
 
 
 call plug#end()
@@ -154,6 +181,7 @@ call plug#end()
 " ┃ Visual Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 syntax enable
+set mouse=a
 set ruler
 set relativenumber
 set number
@@ -176,6 +204,8 @@ set formatoptions-=t
 set noshowmode
 set noswapfile
 set termguicolors
+set nobackup
+set nowritebackup
 
 filetype indent off
 
@@ -300,14 +330,23 @@ autocmd BufWinEnter * silent NERDTreeMirror
 " ┃ LSP Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
+inoremap <silent> <expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -316,14 +355,14 @@ endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <C-space> coc#refresh()
+  inoremap <silent> <expr> <C-space> coc#refresh()
 else
-  inoremap <silent><expr> <C-@> coc#refresh()
+  inoremap <silent> <expr> <C-@> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -352,11 +391,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f <Plug>(coc-format-selected)
-nmap <leader>f <Plug>(coc-format-selected)
+xmap <silent> <leader>f <Plug>(coc-format-selected)
+nmap <silent> <leader>f <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -368,37 +407,40 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
+xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac <Plug>(coc-codeaction)
+nmap <silent> <leader>ac <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf <Plug>(coc-fix-current)
+nmap <silent> <leader>qf <Plug>(coc-fix-current)
+" Apply CodeLens action on the current line.
+nmap <silent> <leader>lc <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+xmap <silent> if <Plug>(coc-funcobj-i)
+omap <silent> if <Plug>(coc-funcobj-i)
+xmap <silent> af <Plug>(coc-funcobj-a)
+omap <silent> af <Plug>(coc-funcobj-a)
+xmap <silent> ic <Plug>(coc-classobj-i)
+omap <silent> ic <Plug>(coc-classobj-i)
+xmap <silent> ac <Plug>(coc-classobj-a)
+omap <silent> ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 " Note coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+nnoremap <silent> <nowait> <expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent> <nowait> <expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent> <nowait> <expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent> <nowait> <expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 " NeoVim-only mapping for visual mode scroll
 " Useful on signatureHelp after jump placeholder of snippet expansion
 if has('nvim')
-  vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
-  vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
+  vnoremap <silent> <nowait> <expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
+  vnoremap <silent> <nowait> <expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges.
@@ -416,15 +458,15 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Mappings for CoCList
-nnoremap <silent><nowait> <space>h :<C-u>CocFzfList actions<cr>
-nnoremap <silent><nowait> <space>a :<C-u>CocFzfList diagnostics<cr>
-nnoremap <silent><nowait> <space>b :<C-u>CocFzfList diagnostics --current-buf<CR>
-nnoremap <silent><nowait> <space>e :<C-u>CocFzfList extensions<cr>
-nnoremap <silent><nowait> <space>c :<C-u>CocFzfList commands<cr>
-nnoremap <silent><nowait> <space>l :<C-u>CocFzfList location<cr>
-nnoremap <silent><nowait> <space>o :<C-u>CocFzfList outline<cr>
-nnoremap <silent><nowait> <space>s :<C-u>CocFzfList symbols<cr>
-nnoremap <silent><nowait> <space>y :<C-u>CocFzfList yank<cr>
-nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>p :<C-u>CocFzfListResume<CR>
+nnoremap <silent> <nowait> <space>h :<C-u>CocFzfList actions<cr>
+nnoremap <silent> <nowait> <space>a :<C-u>CocFzfList diagnostics<cr>
+nnoremap <silent> <nowait> <space>b :<C-u>CocFzfList diagnostics --current-buf<CR>
+nnoremap <silent> <nowait> <space>e :<C-u>CocFzfList extensions<cr>
+nnoremap <silent> <nowait> <space>c :<C-u>CocFzfList commands<cr>
+nnoremap <silent> <nowait> <space>l :<C-u>CocFzfList location<cr>
+nnoremap <silent> <nowait> <space>o :<C-u>CocFzfList outline<cr>
+nnoremap <silent> <nowait> <space>s :<C-u>CocFzfList symbols<cr>
+nnoremap <silent> <nowait> <space>y :<C-u>CocFzfList yank<cr>
+nnoremap <silent> <nowait> <space>j :<C-u>CocNext<CR>
+nnoremap <silent> <nowait> <space>k :<C-u>CocPrev<CR>
+nnoremap <silent> <nowait> <space>p :<C-u>CocFzfListResume<CR>
