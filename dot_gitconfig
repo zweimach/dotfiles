@@ -40,6 +40,9 @@ mailmap = true
 [pull]
 ff = only
 
+[rerere]
+enabled = true
+
 [init]
 defaultBranch = main
 
