@@ -7,10 +7,11 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Core Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'vim-airline/vim-airline'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lualine/lualine.nvim'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -46,6 +47,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-sandwich'
+Plug 'luukvbaal/stabilize.nvim'
 Plug 'sainnhe/edge'
 
 
@@ -216,35 +218,54 @@ colorscheme edge
 
 let g:EditorConfig_preserve_formatoptions  = 1
 
-let g:airline_theme                        = 'edge'
-let g:airline#extensions#branch#enabled    = 1
-let g:airline#extensions#tabline#enabled   = 1
-let g:airline_skip_empty_sections          = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_section_c                    = '%t'
-let g:airline_section_z                    = 'ln:%l/%L col:%c'
+let g:gitgutter_map_keys                   = 0
+let g:gitgutter_sign_added                 = '+'
+let g:gitgutter_sign_modified              = '>'
+let g:gitgutter_sign_removed               = '-'
+let g:gitgutter_sign_removed_first_line    = '^'
+let g:gitgutter_sign_modified_removed      = '<'
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+lua <<EOF
+require("stabilize").setup()
+EOF
 
-let g:airline#extensions#branch#prefix        = '⤴'
-let g:airline#extensions#readonly#symbol      = '⊘'
-let g:airline#extensions#tabline#left_sep     = ' '
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline_left_sep                        = ''
-let g:airline_left_alt_sep                    = ''
-let g:airline_right_sep                       = ''
-let g:airline_right_alt_sep                   = ''
-let g:airline_symbols.branch                  = ''
-let g:airline_symbols.readonly                = ''
 
-let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '>'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '<'
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Statusline Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+lua <<EOF
+require('lualine').setup({
+  options = {
+    icons_enabled = true,
+    theme = 'edge',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = false,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat'},
+    lualine_y = {'filetype'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {
+    lualine_a = {'buffers'},
+    lualine_z = {'tabs'}
+  },
+  extensions = {'fugitive', 'fzf', 'nvim-tree'}
+})
+EOF
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -301,22 +322,22 @@ let g:vim_svelte_plugin_use_sass       = 1
 " ┃ Keymap Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <A-o> :Buffers<CR>
 nnoremap <silent> <C-j> :bnext<CR>
 nnoremap <silent> <A-j> :tabnext<CR>
 nnoremap <silent> <C-k> :bprev<CR>
 nnoremap <silent> <A-k> :tabprevious<CR>
 nnoremap <silent> <C-l> :nohlsearch<Bar>diffupdate<CR><C-l>
 nnoremap <silent> Y y$
+vnoremap <silent> J :m '>+1<CR>gv=gv
+vnoremap <silent> K :m '<-2<CR>gv=gv
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Explorer Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
-let g:nvim_tree_gitignore = 0
 let g:nvim_tree_quit_on_open = 0
 let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_hide_dotfiles = 0
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_root_folder_modifier = ':~'
@@ -394,11 +415,19 @@ require('nvim-tree').setup({
   update_focused_file = {
     enable = true,
   },
+  git = {
+    enable = true,
+    ignore = true,
+  },
+  filters = {
+    dotfiles = false,
+    custom = {'.git', 'node_modules', '.cache'},
+  },
   view = {
     width = 40,
     side = 'left',
-    auto_resize = false
-  }
+    auto_resize = false,
+  },
 })
 EOF
 
@@ -413,14 +442,7 @@ highlight NvimTreeFolderIcon guibg=blue
 " ┃ LSP Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+let g:coc_default_semantic_highlight_groups = 1
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
