@@ -10,14 +10,21 @@ helper = store
 ui = auto
 
 [core]
-editor = nvim
 excludesfile = ~/.gitignore
-pager = delta
+
+[pager]
+diff = delta
+log = delta
+reflog = delta
+show = delta
 
 [delta]
 line-numbers = true
 side-by-side = false
 syntax-theme = OneHalfDark
+
+[interactive]
+diffFilter = delta --color-only --features=interactive
 
 [diff]
 colorMoved = default
