@@ -19,6 +19,7 @@ Plug 'nvim-lualine/lualine.nvim'
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'neoclide/coc.nvim',                    {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf',                 {'branch': 'release'}
+Plug 'neoclide/coc-pairs',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'neoclide/coc-css',                     {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'neoclide/coc-json',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'neoclide/coc-yaml',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
@@ -52,45 +53,6 @@ Plug 'sainnhe/edge'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ JavaScript Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
-Plug 'maxmellon/vim-jsx-pretty',
-\ {
-\   'for': [
-\     'javascript',
-\     'javascriptreact',
-\     'typescript',
-\     'typescriptreact'
-\   ]
-\ }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ TypeScript Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ C/C++ Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Rust Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Haskell Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell', 'cabal'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Idris Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'edwinb/idris2-vim', { 'for': ['idris'] }
@@ -115,45 +77,15 @@ Plug 'vmchale/dhall-vim', { 'for': ['dhall'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Elm Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Zig Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'ziglang/zig.vim', { 'for': ['zig'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Vue Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'leafOfTree/vim-vue-plugin', { 'for': ['vue'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Svelte Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ ReScript Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'rescript-lang/vim-rescript', { 'for': ['rescript'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ GraphQL Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'jparise/vim-graphql', { 'for': ['graphql'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Racket Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'wlangstroth/vim-racket', { 'for': ['racket', 'scheme' ] }
+Plug 'wlangstroth/vim-racket', { 'for': ['racket', 'scheme'] }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -249,7 +181,7 @@ require('lualine').setup({
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat'},
     lualine_y = {'filetype'},
-    lualine_z = {'location'}
+    lualine_z = {'location'},
   },
   inactive_sections = {
     lualine_a = {},
@@ -257,13 +189,13 @@ require('lualine').setup({
     lualine_c = {'filename'},
     lualine_x = {'location'},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
   tabline = {
     lualine_a = {'buffers'},
-    lualine_z = {'tabs'}
+    lualine_z = {'tabs'},
   },
-  extensions = {'fugitive', 'fzf', 'nvim-tree'}
+  extensions = {'fugitive', 'fzf', 'nvim-tree'},
 })
 EOF
 
@@ -276,46 +208,13 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = "all",
   highlight = {
     enable = true,
+    additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = true
-  }
+    enable = true,
+  },
 })
 EOF
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ JavaScript Settings
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:javascript_plugin_flow  = 1
-let g:javascript_plugin_jsdoc = 1
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Haskell Settings
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:haskell_enable_quantification   = 1
-let g:haskell_enable_recursivedo      = 1
-let g:haskell_enable_arrowsyntax      = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles        = 1
-let g:haskell_enable_static_pointers  = 1
-let g:haskell_backpack                = 1
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Vue Settings
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:vim_vue_plugin_use_typescript        = 1
-let g:vim_vue_plugin_use_sass              = 1
-let g:vim_vue_plugin_highlight_vue_keyword = 1
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Svelte Settings
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:vim_svelte_plugin_use_typescript = 1
-let g:vim_svelte_plugin_use_sass       = 1
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
