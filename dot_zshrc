@@ -127,6 +127,17 @@ fzf-workspace-widget() {
 zle -N fzf-workspace-widget
 bindkey '\eo' fzf-workspace-widget
 
+with_ghc() {
+	local np=$(ghcup --offline whereis -d ghc $1 || { ghcup --cache install ghc $1 && ghcup whereis -d ghc $1; })
+	if [ -e "${np}" ]; then
+		shift
+		PATH="$np:$PATH" "$@"
+	else
+		echo >&2 "Cannot find or install GHC version $1"
+		return 1
+	fi
+}
+
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Others
