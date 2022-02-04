@@ -1,56 +1,19 @@
 {
-  "clangd.semanticHighlighting": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "c",
-    "clojure",
-    "cpp",
-    "css",
-    "dart",
-    "dhall",
-    "elm",
-    "go",
-    "graphql",
-    "haskell",
-    "html",
-    "java",
-    "json",
-    "jsonc",
-    "javascript",
-    "javascriptreact",
-    "less",
-    "markdown",
-    "ocaml",
-    "php",
-    "purescript",
-    "python",
-    "racket",
-    "rescript",
-    "rust",
-    "scheme",
-    "scss",
-    "svelte",
-    "toml",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-    "vue",
-    "zig"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
   "codeLens.enable": true,
   "diagnostic.floatConfig": {
-    "maxHeight": 64
+    "maxHeight": 80
   },
   "eslint.autoFixOnSave": true,
   "hover.floatConfig": {
-    "maxHeight": 64
+    "maxHeight": 80
   },
   "go.goplsOptions": {
     "gofumpt": true,
+    "linksInHover": false,
     "staticcheck": true,
     "semanticTokens": true
   },
-  "javascript.implementationsCodeLens.enable": false,
-  "javascript.referencesCodeLens.enable": false,
   "languageserver": {
     "clojure": {
       "command": "clojure-lsp",
@@ -133,10 +96,6 @@
   },
   "prettier.disableLanguages": [],
   "python.formatting.provider": "black",
-  "rust-analyzer.highlighting.strings": true,
-  "rust-analyzer.lens.methodReferences": false,
-  "rust-analyzer.lens.implementations": false,
-  "rust-analyzer.lens.references": false,
   "suggest.completionItemKindLabels": {
     "method": "  ",
     "function": "  ",
@@ -166,8 +125,7 @@
   },
   "tailwindCSS.experimental.showPixelValues": true,
   "tailwindCSS.validate": true,
-  "typescript.implementationsCodeLens.enable": false,
-  "typescript.referencesCodeLens.enable": false,
-  "volar.formatting.enable": false,
-  "svelte.enable-ts-plugin": true
+  "semanticTokens.filetypes": ["*"],
+  "svelte.enable-ts-plugin": true,
+  "volar.formatting.enable": false
 }
