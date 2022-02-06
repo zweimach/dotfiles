@@ -127,6 +127,10 @@ fzf-workspace-widget() {
 zle -N fzf-workspace-widget
 bindkey '\eo' fzf-workspace-widget
 
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Utils
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
 with_ghc() {
 	local np=$(ghcup --offline whereis -d ghc $1 || { ghcup --cache install ghc $1 && ghcup whereis -d ghc $1; })
 	if [ -e "${np}" ]; then
@@ -137,6 +141,20 @@ with_ghc() {
 		return 1
 	fi
 }
+
+alert() {
+	local ex="$?"
+	local cmd="$history[$(print -P %h)]"
+	notify-send "$(echo ${cmd} | tail -n 1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')" "Done! Exit code: ${ex}"
+}
+
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Aliases
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+if command -v exa &> /dev/null; then
+	alias ls=exa
+fi
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
