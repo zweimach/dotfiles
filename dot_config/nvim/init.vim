@@ -29,6 +29,7 @@ Plug 'neoclide/coc-eslint',                  {'do': 'npm install --no-package-lo
 Plug 'neoclide/coc-stylelint',               {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'neoclide/coc-tsserver',                {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'neoclide/coc-yank',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'neoclide/coc-java',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'fannheyward/coc-rust-analyzer',        {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'fannheyward/coc-pyright',              {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'fannheyward/coc-deno',                 {'do': 'npm install --no-package-lock --legacy-peer-deps'}
@@ -38,6 +39,8 @@ Plug 'rodrigore/coc-tailwind-intellisense',  {'do': 'npm install --no-package-lo
 Plug 'josa42/coc-go',                        {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'xiyaowong/coc-sumneko-lua',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'yaegassy/coc-volar',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'marlonfan/coc-phpls',                  {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'iamcco/coc-flutter',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -104,6 +107,12 @@ Plug 'arrufat/vala.vim', { 'for': ['vala'] }
 " ┃ OOC Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'fasterthanlime/ooc.vim', { 'for': ['ooc'] }
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Pony Packages
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+Plug 'jakwings/vim-pony', { 'for': ['pony'] }
 
 
 call plug#end()
