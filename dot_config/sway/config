@@ -39,6 +39,7 @@ set $down j
 set $up k
 set $right l
 
+set $shell $SHELL
 set $term $TERMINAL
 set $menu $MENU -S drun
 set $reader $READER
@@ -172,8 +173,9 @@ bindsym Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 
 bindsym $mod+Ctrl+e exec $explorer
 bindsym $mod+Ctrl+f exec $browser
-bindsym $mod+Ctrl+d exec $reader
+bindsym $mod+Ctrl+r exec $reader
 bindsym $mod+Ctrl+c exec $editor
+bindsym $mod+Ctrl+d exec $shell -c -i library-menu
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━

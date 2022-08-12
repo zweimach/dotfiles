@@ -1,3 +1,74 @@
-[[ $- != *i* ]] && return
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ History
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export HISTFILE=~/.bash_history
+export HISTFILESIZE=
+export HISTSIZE=
 
-PS1='[\u@\h \W]\$ '
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ fzf & rg
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export FZF_DEFAULT_OPTS='-m --height 70% --border=sharp --layout=reverse'
+
+if type rg &>/dev/null; then
+	export FZF_DEFAULT_COMMAND='rg --files --hidden'
+fi
+
+test -r /usr/share/fzf/key-bindings.bash && source /usr/share/fzf/key-bindings.bash >/dev/null 2>/dev/null || true
+test -r /usr/share/fzf/completion.bash && source /usr/share/fzf/completion.bash >/dev/null 2>/dev/null || true
+
+fzf-workspace-widget() {
+	local cmd dir
+	cmd="${FZF_ALT_O_COMMAND:-"command ls -1 $WORKSPACE"}"
+	dir=$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_O_OPTS" $(__fzfcmd) +m) && printf 'cd -- %q' "$WORKSPACE/$dir"
+}
+bind -m emacs-standard '"\eo": " \C-b\C-k \C-u`fzf-workspace-widget`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind -m vi-command '"\eo": "\C-z\eo\C-z"'
+bind -m vi-insert '"\eo": "\C-z\eo\C-z"'
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ starship
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+eval "$(starship init bash)"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ GPG
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Utils
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+with_ghc() {
+	local np
+	np=$(ghcup --offline whereis -d ghc $1 || { ghcup --cache install ghc $1 && ghcup whereis -d ghc $1; })
+	if [ -e "${np}" ]; then
+		shift
+		PATH="$np:$PATH" "$@"
+	else
+		echo >&2 "Cannot find or install GHC version $1"
+		return 1
+	fi
+}
+
+alert() {
+	local ex="$?"
+	notify-send "$(history | tail -n 1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')" "Done! Exit code: ${ex}"
+}
+
+library-menu() {
+	fd -e pdf -e djvu '' Library/\[Tech\]* | $MENU --dmenu | xargs -d '\n' -I % $READER "%"
+}
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Aliases
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+if command -v exa &>/dev/null; then
+	alias ls=exa
+fi
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Others
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+test -r ~/.opam/opam-init/init.bash && source ~/.opam/opam-init/init.bash >/dev/null 2>/dev/null || true

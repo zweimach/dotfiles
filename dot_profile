@@ -1,9 +1,27 @@
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Bash
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+        source "$HOME/.bashrc"
+    fi
+fi
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ XDG Base Directory
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ User Env
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 export WORKSPACE="$HOME/Workspace"
 
-export SHELL="/bin/zsh"
+export SHELL="/bin/bash"
 export TERMINAL="alacritty"
 export EDITOR="nvim"
 export BROWSER="firefox"
