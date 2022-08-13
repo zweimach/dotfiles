@@ -1,0 +1,6 @@
+set window-title-home-tilde
+set window-title-basename
+set statusbar-home-tilde
+set statusbar-basename
+set selection-clipboard clipboard
+set incremental-search true
