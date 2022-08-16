@@ -2,11 +2,13 @@
   "coc.preferences.formatOnSaveFiletypes": ["*"],
   "codeLens.enable": true,
   "diagnostic.floatConfig": {
-    "maxHeight": 80
+    "maxHeight": 80,
+    "maxWidth": 120
   },
   "eslint.autoFixOnSave": true,
   "hover.floatConfig": {
-    "maxHeight": 80
+    "maxHeight": 80,
+    "maxWidth": 120
   },
   "go.goplsOptions": {
     "gofumpt": true,
@@ -15,11 +17,11 @@
     "semanticTokens": true
   },
   "languageserver": {
-    "clojure": {
-      "command": "clojure-lsp",
-      "filetypes": ["clojure"],
-      "rootPatterns": ["project.clj"],
-      "additionalSchemes": ["jar", "zipfile"]
+    "astro": {
+      "command": "astro-ls",
+      "args": ["--stdio"],
+      "filetypes": ["astro"],
+      "rootPatterns": ["astro.config.mjs", "astro.config.js"]
     },
     "dhall": {
       "command": "dhall-lsp-server",
@@ -36,6 +38,12 @@
       "filetypes": ["javascript", "javascriptreact"],
       "requireRootPattern": true,
       "rootPatterns": [".flowconfig"]
+    },
+    "gleam": {
+      "command": "gleam",
+      "args": ["lsp"],
+      "filetypes": ["gleam"],
+      "rootPatterns": ["gleam.toml"]
     },
     "graphql": {
       "command": "graphql-lsp",
@@ -78,16 +86,9 @@
       "filetypes": ["purescript"],
       "rootPatterns": ["psc-package.json", "spago.dhall"]
     },
-    "racket": {
-      "command": "racket",
-      "args": ["--lib", "racket-langserver"],
-      "filetypes": ["racket", "scheme"]
-    },
-    "rescript": {
-      "module": "~/.config/nvim/plugged/vim-rescript/server/out/server.js",
-      "args": ["--node-ipc"],
-      "filetypes": ["rescript"],
-      "rootPatterns": ["bsconfig.json"]
+    "vala": {
+      "command": "vala-language-server",
+      "filetypes": ["vala"]
     },
     "zig": {
       "command": "zls",
@@ -123,9 +124,21 @@
     "value": "  ",
     "enumMember": "  "
   },
-  "tailwindCSS.experimental.showPixelValues": true,
-  "tailwindCSS.validate": true,
+  "tailwindCSS.experimental.classRegex": [
+    "\\bclass[\\s(<|]+\"([^\"]*)\"",
+    "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\"",
+    "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+    "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+    "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+    "\\bclassList[\\s\\[\\(]+\"([^\"]*)\"",
+    "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\"",
+    "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+  ],
+  "tailwindCSS.includeLanguages": {
+    "elm": "html"
+  },
   "semanticTokens.filetypes": ["*"],
+  "suggest.noselect": true,
   "svelte.enable-ts-plugin": true,
   "volar.formatting.enable": false
 }

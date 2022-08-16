@@ -35,12 +35,13 @@ Plug 'fannheyward/coc-pyright',              {'do': 'npm install --no-package-lo
 Plug 'fannheyward/coc-deno',                 {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'clangd/coc-clangd',                    {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'coc-extensions/coc-svelte',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
-Plug 'rodrigore/coc-tailwind-intellisense',  {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'josa42/coc-go',                        {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'xiyaowong/coc-sumneko-lua',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'yaegassy/coc-volar',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'marlonfan/coc-phpls',                  {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 Plug 'iamcco/coc-flutter',                   {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'NoahTheDuke/coc-clojure',              {'do': 'npm install --no-package-lock --legacy-peer-deps'}
+Plug 'yaegassy/coc-tailwindcss3',            {'do': 'npm install --no-package-lock --legacy-peer-deps'}
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -49,6 +50,7 @@ Plug 'iamcco/coc-flutter',                   {'do': 'npm install --no-package-lo
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-sandwich'
 Plug 'luukvbaal/stabilize.nvim'
@@ -56,63 +58,15 @@ Plug 'sainnhe/edge'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Idris Packages
+" ┃ Language Packages
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'edwinb/idris2-vim', { 'for': ['idris'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Reason Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'reasonml-editor/vim-reason-plus', { 'for': ['reason'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ PureScript Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'purescript-contrib/purescript-vim', { 'for': ['purescript'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Dhall Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'vmchale/dhall-vim', { 'for': ['dhall'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ ReScript Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'rescript-lang/vim-rescript', { 'for': ['rescript'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Racket Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'wlangstroth/vim-racket', { 'for': ['racket', 'scheme'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ LiveScript Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'wsdjeg/vim-livescript', { 'for': ['livescript'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Vala Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'arrufat/vala.vim', { 'for': ['vala'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ OOC Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'fasterthanlime/ooc.vim', { 'for': ['ooc'] }
-
-
-" ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Pony Packages
-" ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'jakwings/vim-pony', { 'for': ['pony'] }
+Plug 'edwinb/idris2-vim',                   { 'for': ['idris']          }
+Plug 'purescript-contrib/purescript-vim',   { 'for': ['purescript']     }
+Plug 'vmchale/dhall-vim',                   { 'for': ['dhall']          }
+Plug 'wsdjeg/vim-livescript',               { 'for': ['livescript']     }
+Plug 'arrufat/vala.vim',                    { 'for': ['vala']           }
+Plug 'fasterthanlime/ooc.vim',              { 'for': ['ooc']            }
+Plug 'jakwings/vim-pony',                   { 'for': ['pony']           }
 
 
 call plug#end()
@@ -122,33 +76,30 @@ call plug#end()
 " ┃ Visual Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 syntax enable
-set mouse=a
+set termguicolors
 set ruler
-set relativenumber
 set number
+set relativenumber
 set hidden
-set expandtab
 set autoindent
-set nosmartindent
-set nocindent
-set listchars=tab:>·,trail:~,extends:>,precedes:<,space:␣
+set smartindent
 set list
+set listchars=tab:>·,trail:~,extends:>,precedes:<,space:␣
+set expandtab
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 set cmdheight=1
 set updatetime=300
-set shortmess+=c
+set mouse=a
 set signcolumn=yes
-set clipboard=unnamedplus
+set shortmess+=c
+set clipboard+=unnamedplus
 set completeopt-=preview
-set formatoptions-=t
+set formatoptions-=tc
 set noshowmode
 set noswapfile
-set termguicolors
 set nobackup
 set nowritebackup
-
-filetype indent off
 
 let g:edge_style                   = 'neon'
 let g:edge_enable_italic           = 1
@@ -225,6 +176,10 @@ require('nvim-treesitter.configs').setup({
 })
 EOF
 
+set nofoldenable
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Keymap Settings
@@ -244,97 +199,48 @@ vnoremap <silent> K :m '<-2<CR>gv=gv
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Explorer Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-let g:nvim_tree_quit_on_open = 0
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_git_hl = 1
-let g:nvim_tree_highlight_opened_files = 1
-let g:nvim_tree_root_folder_modifier = ':~'
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_group_empty = 1
-let g:nvim_tree_disable_window_picker = 1
-let g:nvim_tree_icon_padding = ' '
-let g:nvim_tree_symlink_arrow = ' >> '
-let g:nvim_tree_respect_buf_cwd = 1
-let g:nvim_tree_create_in_closed_folder = 0
-let g:nvim_tree_refresh_wait = 500
-let g:nvim_tree_window_picker_exclude = {
-\   'filetype': [
-\     'notify',
-\     'packer',
-\     'qf'
-\   ],
-\   'buftype': [
-\     'terminal'
-\   ]
-\ }
-let g:nvim_tree_special_files = {
-\   'README.md': 1,
-\   'Makefile': 1,
-\   'MAKEFILE': 1
-\ }
-let g:nvim_tree_show_icons = {
-\   'git': 1,
-\   'folders': 1,
-\   'files': 1,
-\   'folder_arrows': 1,
-\ }
-let g:nvim_tree_icons = {
-\   'default': '',
-\   'symlink': '',
-\   'git': {
-\     'unstaged': "✗",
-\     'staged': "✓",
-\     'unmerged': "",
-\     'renamed': "➜",
-\     'untracked': "★",
-\     'deleted': "",
-\     'ignored': "◌"
-\     },
-\   'folder': {
-\     'arrow_open': "",
-\     'arrow_closed': "",
-\     'default': "",
-\     'open': "",
-\     'empty': "",
-\     'empty_open': "",
-\     'symlink': "",
-\     'symlink_open': "",
-\   }
-\ }
-
 lua <<EOF
 require('nvim-tree').setup({
   disable_netrw = true,
   hijack_netrw = true,
-  open_on_setup = false,
-  auto_close = false,
-  open_on_tab = false,
   hijack_cursor = true,
+  respect_buf_cwd = true,
   update_cwd = true,
-  diagnostics = {
-    enable = false,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
-  },
   update_focused_file = {
     enable = true,
   },
-  git = {
-    enable = true,
-    ignore = true,
-  },
   filters = {
-    dotfiles = false,
-    custom = {'.git', 'node_modules', '.cache'},
+    custom = {'.git$'},
   },
   view = {
     width = 40,
     side = 'left',
-    auto_resize = false,
+  },
+  renderer = {
+    add_trailing = true,
+    group_empty = true,
+    highlight_git = true,
+    highlight_opened_files = "name",
+    icons = {
+      show = {
+        folder_arrow = false,
+      },
+    },
+    indent_markers = {
+      enable = true,
+    },
+    special_files = {"Makefile", "MAKEFILE", "README.md", "readme.md", "LICENSE"},
+  },
+  actions = {
+    open_file = {
+      window_picker = {
+        enable = false,
+        exclude = {
+          filetype = {"notify", "packer", "qf", "diff", "fugitive", "fugitiveblame"},
+          buftype  = {"nofile", "terminal", "help"},
+        },
+      },
+    },
   },
 })
 EOF
@@ -342,8 +248,6 @@ EOF
 nnoremap <silent> <C-\> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
-
-highlight NvimTreeFolderIcon guibg=blue
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -354,10 +258,10 @@ highlight NvimTreeFolderIcon guibg=blue
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent> <expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent> <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -373,7 +277,7 @@ endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent> <expr> <cr> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
