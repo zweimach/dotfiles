@@ -1,11 +1,11 @@
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Package Manager
+" ┃ Plugin Manager
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-call plug#begin(expand('~/.config/nvim/plugged'))
+call plug#begin()
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Core Packages
+" ┃ Core Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf'
@@ -15,7 +15,7 @@ Plug 'nvim-lualine/lualine.nvim'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ LSP Packages
+" ┃ LSP Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'neoclide/coc.nvim',                    {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf',                 {'branch': 'release'}
@@ -45,7 +45,7 @@ Plug 'yaegassy/coc-tailwindcss3',            {'do': 'npm install --no-package-lo
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Additional Packages
+" ┃ Additional Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -58,7 +58,7 @@ Plug 'sainnhe/edge'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
-" ┃ Language Packages
+" ┃ Language Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'edwinb/idris2-vim',                   { 'for': ['idris']          }
 Plug 'purescript-contrib/purescript-vim',   { 'for': ['purescript']     }
