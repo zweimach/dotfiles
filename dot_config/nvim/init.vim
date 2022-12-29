@@ -10,7 +10,8 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter',          { 'do': ':TSUpdate' }
 Plug 'nvim-lualine/lualine.nvim'
 
 
@@ -51,10 +52,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
-Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-sandwich'
 Plug 'luukvbaal/stabilize.nvim'
 Plug 'sainnhe/edge'
+Plug 'lewis6991/gitsigns.nvim'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -96,6 +97,7 @@ set shortmess+=c
 set clipboard+=unnamedplus
 set completeopt-=preview
 set formatoptions-=tc
+set undofile
 set noshowmode
 set noswapfile
 set nobackup
@@ -110,17 +112,6 @@ colorscheme edge
 
 let g:EditorConfig_preserve_formatoptions  = 1
 
-let g:gitgutter_map_keys                   = 0
-let g:gitgutter_sign_added                 = '+'
-let g:gitgutter_sign_modified              = '>'
-let g:gitgutter_sign_removed               = '-'
-let g:gitgutter_sign_removed_first_line    = '^'
-let g:gitgutter_sign_modified_removed      = '<'
-
-lua <<EOF
-require("stabilize").setup()
-EOF
-
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Statusline Settings
@@ -134,6 +125,7 @@ require('lualine').setup({
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
     always_divide_middle = false,
+    globalstatus = true,
   },
   sections = {
     lualine_a = {'mode'},
@@ -192,6 +184,8 @@ nnoremap <silent> <C-k> :bprev<CR>
 nnoremap <silent> <A-k> :tabprevious<CR>
 nnoremap <silent> <C-l> :nohlsearch<Bar>diffupdate<CR><C-l>
 nnoremap <silent> Y y$
+nnoremap <silent> <Leader>g <Cmd>Gitsigns preview_hunk_inline<CR>
+nnoremap <silent> <A-g> <Cmd>tab Git<CR>
 vnoremap <silent> J :m '>+1<CR>gv=gv
 vnoremap <silent> K :m '<-2<CR>gv=gv
 
@@ -248,6 +242,24 @@ EOF
 nnoremap <silent> <C-\> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
+
+
+" ┏━━━━━━━━━━━━━━━━━━━━━━━
+" ┃ Additional Plugin Settings
+" ┗━━━━━━━━━━━━━━━━━━━━━━━
+lua <<EOF
+require("stabilize").setup()
+
+require('gitsigns').setup({
+  signcolumn = true,
+  current_line_blame = true,
+  current_line_blame_opts = {
+    delay = 500,
+  },
+  update_debounce = 250,
+  max_file_length = 10000,
+})
+EOF
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
