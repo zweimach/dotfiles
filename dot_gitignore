@@ -6,3 +6,4 @@
 compile_commands.json
 node_modules
 dist-newstyle
+Session.vim

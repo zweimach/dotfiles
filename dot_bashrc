@@ -69,6 +69,11 @@ if command -v exa &>/dev/null; then
 fi
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
-# ┃ Others
+# ┃ OCaml / OPAM
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 test -r ~/.opam/opam-init/init.bash && source ~/.opam/opam-init/init.bash >/dev/null 2>/dev/null || true
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Lua / LuaRocks
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+command -v luarocks &>/dev/null && eval "$(luarocks path --bin)"
