@@ -70,8 +70,15 @@
         "hie.yaml"
       ],
       "initializationOptions": {
-        "languageServerHaskell": {
-          "formattingProvider": "fourmolu"
+        "haskell": {
+          "formattingProvider": "fourmolu",
+          "plugin": {
+            "fourmolu": {
+              "config": {
+                "external": true
+              }
+            }
+          }
         }
       }
     },
