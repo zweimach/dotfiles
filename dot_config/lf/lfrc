@@ -10,7 +10,8 @@ map x $$f
 map X !$f
 map o &mimeopen $f
 map O $mimeopen --ask $f
-map R push :rename<space>
+map R push r<a-b><c-b>
+map Y push :copy-name<enter>
 
 cmd open ${{
     test -L $f && f=$(readlink -f $f)
@@ -30,4 +31,14 @@ cmd extract ${{
         *.rar) unrar x $f;;
         *.7z) 7z x $f;;
     esac
+}}
+
+cmd copy-name ${{
+    set -f
+    wl-copy $(basename $f)
+}}
+
+cmd copy-path ${{
+    set -f
+    wl-copy $f
 }}
