@@ -9,9 +9,6 @@ helper = store
 [color]
 ui = auto
 
-[core]
-excludesfile = ~/.gitignore
-
 [pager]
 diff = delta
 log = delta
