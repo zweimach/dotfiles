@@ -7,12 +7,13 @@ call plug#begin()
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Core Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim',            { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-treesitter/nvim-treesitter',          { 'do': ':TSUpdate' }
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -50,8 +51,7 @@ Plug 'yaegassy/coc-volar',                   { 'do': 'npm install --no-package-l
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Additional Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'gpanders/editorconfig.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'machakann/vim-sandwich'
@@ -111,8 +111,6 @@ let g:edge_disable_italic_comment  = 1
 let g:edge_better_performance      = 1
 
 colorscheme edge
-
-let g:EditorConfig_preserve_formatoptions  = 1
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -224,7 +222,7 @@ require('nvim-tree').setup({
   respect_buf_cwd = true,
   update_cwd = true,
   filters = {
-    custom = { '.git$' },
+    custom = { '^\\.git$' },
   },
   view = {
     width = 40,
@@ -398,8 +396,8 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Mappings for CocList and telescope-coc.nvim
-nnoremap <silent> <nowait> <Space>a :<C-u>Telescope coc diagnostics<CR>
-nnoremap <silent> <nowait> <Space>b :<C-u>Telescope coc workspace_diagnostics<CR>
+nnoremap <silent> <nowait> <Space>b :<C-u>Telescope coc diagnostics<CR>
+nnoremap <silent> <nowait> <Space>a :<C-u>Telescope coc workspace_diagnostics<CR>
 nnoremap <silent> <nowait> <Space>d :<C-u>Telescope coc document_symbols<CR>
 nnoremap <silent> <nowait> <Space>s :<C-u>Telescope coc workspace_symbols<CR>
 nnoremap <silent> <nowait> <Space>h :<C-u>Telescope coc file_code_actions<CR>
