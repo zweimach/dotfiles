@@ -40,6 +40,7 @@ Plug 'clangd/coc-clangd',                    { 'do': 'npm install --no-package-l
 Plug 'coc-extensions/coc-svelte',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 Plug 'iamcco/coc-flutter',                   { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 Plug 'josa42/coc-go',                        { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
+Plug 'kkiyama117/coc-toml',                  { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 Plug 'xiyaowong/coc-sumneko-lua',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 Plug 'yaegassy/coc-intelephense',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 Plug 'yaegassy/coc-phpstan',                 { 'do': 'npm install --no-package-lock --legacy-peer-deps' }

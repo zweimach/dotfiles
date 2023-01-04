@@ -69,7 +69,7 @@
         "package.yaml",
         "hie.yaml"
       ],
-      "initializationOptions": {
+      "settings": {
         "haskell": {
           "formattingProvider": "fourmolu",
           "plugin": {
@@ -92,6 +92,11 @@
       "args": ["--stdio"],
       "filetypes": ["purescript"],
       "rootPatterns": ["psc-package.json", "spago.dhall"]
+    },
+    "standardml": {
+      "command": "millet-ls",
+      "filetypes": ["sml"],
+      "rootPatterns": ["millet.toml"]
     },
     "vala": {
       "command": "vala-language-server",
