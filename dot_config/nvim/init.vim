@@ -33,6 +33,7 @@ Plug 'machakann/vim-sandwich'
 Plug 'luukvbaal/stabilize.nvim'
 Plug 'sainnhe/edge'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'windwp/nvim-autopairs'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -94,11 +95,6 @@ colorscheme edge
 lua <<EOF
 require('lualine').setup({
   options = {
-    icons_enabled = true,
-    theme = 'edge',
-    component_separators = { left = '', right = '' },
-    section_separators = { left = '', right = '' },
-    disabled_filetypes = {},
     always_divide_middle = false,
     globalstatus = true,
   },
@@ -122,7 +118,7 @@ require('lualine').setup({
     lualine_a = { 'buffers' },
     lualine_z = { 'tabs' },
   },
-  extensions = { 'fugitive', 'nvim-tree' },
+  extensions = { 'fugitive', 'man', 'nvim-tree' },
 })
 EOF
 
@@ -252,6 +248,20 @@ require('gitsigns').setup({
   update_debounce = 250,
   max_file_length = 10000,
 })
+
+local npairs = require("nvim-autopairs")
+
+npairs.setup({
+  map_cr = false,
+})
+
+vim.keymap.set('i', '<CR>', function()
+  if vim.fn["coc#pum#visible"]() ~= 0 then
+    return vim.fn["coc#pum#confirm"]()
+  else
+    return npairs.autopairs_cr()
+  end
+end, { expr = true, noremap = true, silent = true })
 EOF
 
 
@@ -330,7 +340,7 @@ nmap <silent> <Leader>a <Plug>(coc-codeaction-selected)
 " Remap keys for applying codeAction to the current buffer.
 nmap <silent> <Leader>ac <Plug>(coc-codeaction)
 " Remap keys for apply code actions affect whole buffer
-nmap <Leader>as  <Plug>(coc-codeaction-source)
+nmap <silent> <Leader>as <Plug>(coc-codeaction-source)
 " Apply AutoFix to problem on the current line.
 nmap <silent> <Leader>qf <Plug>(coc-fix-current)
 " Run the Code Lens action on the current line.
