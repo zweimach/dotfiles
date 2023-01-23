@@ -21,32 +21,6 @@ Plug 'nvim-tree/nvim-tree.lua'
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
 Plug 'neoclide/coc.nvim',                    { 'branch': 'release' }
 Plug 'fannheyward/telescope-coc.nvim'
-Plug 'fannheyward/coc-rust-analyzer',        { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'fannheyward/coc-pyright',              { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'fannheyward/coc-deno',                 { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-css',                     { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-eslint',                  { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-html',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-java',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-json',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-pairs',                   { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-prettier',                { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-stylelint',               { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-tsserver',                { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-yaml',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'neoclide/coc-yank',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'NoahTheDuke/coc-clojure',              { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'clangd/coc-clangd',                    { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'coc-extensions/coc-svelte',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'iamcco/coc-flutter',                   { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'josa42/coc-go',                        { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'kkiyama117/coc-toml',                  { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'xiyaowong/coc-sumneko-lua',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'yaegassy/coc-intelephense',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'yaegassy/coc-phpstan',                 { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'yaegassy/coc-psalm',                   { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'yaegassy/coc-tailwindcss3',            { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
-Plug 'yaegassy/coc-volar',                   { 'do': 'npm install --no-package-lock --legacy-peer-deps' }
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━

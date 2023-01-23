@@ -32,12 +32,9 @@
       "filetypes": ["elm"],
       "rootPatterns": ["elm.json"]
     },
-    "flow": {
-      "command": "flow",
-      "args": ["lsp"],
-      "filetypes": ["javascript", "javascriptreact"],
-      "requireRootPattern": true,
-      "rootPatterns": [".flowconfig"]
+    "erlang": {
+      "command": "erlang_ls",
+      "filetypes": ["erlang"]
     },
     "gleam": {
       "command": "gleam",
@@ -94,19 +91,16 @@
       "rootPatterns": ["psc-package.json", "spago.dhall"]
     },
     "standardml": {
-      "command": "millet-ls",
+      "command": "millet",
       "filetypes": ["sml"],
       "rootPatterns": ["millet.toml"]
     },
     "vala": {
       "command": "vala-language-server",
       "filetypes": ["vala"]
-    },
-    "zig": {
-      "command": "zls",
-      "filetypes": ["zig"]
     }
   },
+  "phpstan.download.checkOnStartup": false,
   "prettier.disableLanguages": [],
   "python.formatting.provider": "black",
   "suggest.completionItemKindLabels": {
@@ -152,5 +146,7 @@
   "semanticTokens.filetypes": ["*"],
   "suggest.noselect": true,
   "svelte.enable-ts-plugin": true,
-  "volar.formatting.enable": false
+  "svelte.plugin.svelte.format.enable": false,
+  "volar.formatting.enable": false,
+  "xml.format.enabled": false
 }
