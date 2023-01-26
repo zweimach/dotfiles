@@ -54,7 +54,6 @@ call plug#end()
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Visual Settings
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-syntax enable
 set termguicolors
 set ruler
 set number
@@ -62,19 +61,23 @@ set relativenumber
 set hidden
 set autoindent
 set smartindent
+set ignorecase
+set smartcase
 set list
-set listchars=tab:>·,trail:~,extends:>,precedes:<,space:␣
+set listchars=tab:›\ ,trail:~,extends:»,precedes:«,lead:·,space:␣
 set expandtab
 set tabstop=4
 set shiftwidth=0
 set cmdheight=1
 set updatetime=300
 set mouse=a
+set mousemodel=extend
 set signcolumn=yes
 set shortmess+=c
 set clipboard+=unnamedplus
-set completeopt-=preview
+set completeopt=menu,menuone,noselect
 set formatoptions-=tc
+set scrolloff=8
 set undofile
 set noshowmode
 set noswapfile
@@ -82,9 +85,20 @@ set nobackup
 set nowritebackup
 
 let g:edge_style                   = 'neon'
-let g:edge_enable_italic           = 1
+let g:edge_diagnostic_virtual_text = 1
 let g:edge_disable_italic_comment  = 1
 let g:edge_better_performance      = 1
+
+function! s:edge_custom() abort
+  let l:palette = edge#get_palette(g:edge_style, 0, {})
+  call edge#highlight('NormalFloat', l:palette.fg, l:palette.bg0)
+  call edge#highlight('FloatBorder', l:palette.grey, l:palette.bg0)
+endfunction
+
+augroup EdgeCustom
+  autocmd!
+  autocmd ColorScheme edge call s:edge_custom()
+augroup END
 
 colorscheme edge
 

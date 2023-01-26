@@ -1,4 +1,5 @@
 {
+  "coc.preferences.enableMessageDialog": true,
   "coc.preferences.formatOnSaveFiletypes": ["*"],
   "codeLens.enable": true,
   "diagnostic.floatConfig": {
@@ -6,6 +7,12 @@
     "maxWidth": 120
   },
   "eslint.autoFixOnSave": true,
+  "floatFactory.floatConfig": {
+    "border": true,
+    "borderhighlight": "FloatBorder",
+    "highlight": "NormalFloat",
+    "rounded": true
+  },
   "hover.floatConfig": {
     "maxHeight": 80,
     "maxWidth": 120
@@ -100,6 +107,7 @@
       "filetypes": ["vala"]
     }
   },
+  "notification.statusLineProgress": false,
   "phpstan.download.checkOnStartup": false,
   "prettier.disableLanguages": [],
   "python.formatting.provider": "black",
@@ -129,6 +137,12 @@
     "constructor": "  ",
     "value": "  ",
     "enumMember": "  "
+  },
+  "suggest.floatConfig": {
+    "border": true,
+    "borderhighlight": "FloatBorder",
+    "highlight": "NormalFloat",
+    "rounded": true
   },
   "tailwindCSS.experimental.classRegex": [
     "\\bclass[\\s(<|]+\"([^\"]*)\"",
