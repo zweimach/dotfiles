@@ -33,19 +33,20 @@ Plug 'machakann/vim-sandwich'
 Plug 'luukvbaal/stabilize.nvim'
 Plug 'sainnhe/edge'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'numToStr/Comment.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'windwp/nvim-autopairs'
+Plug 'stevearc/dressing.nvim'
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
 " ┃ Language Plugins
 " ┗━━━━━━━━━━━━━━━━━━━━━━━
-Plug 'edwinb/idris2-vim',                   { 'for': ['idris']          }
-Plug 'purescript-contrib/purescript-vim',   { 'for': ['purescript']     }
-Plug 'vmchale/dhall-vim',                   { 'for': ['dhall']          }
-Plug 'wsdjeg/vim-livescript',               { 'for': ['livescript']     }
-Plug 'arrufat/vala.vim',                    { 'for': ['vala']           }
-Plug 'fasterthanlime/ooc.vim',              { 'for': ['ooc']            }
-Plug 'jakwings/vim-pony',                   { 'for': ['pony']           }
+Plug 'edwinb/idris2-vim',                   { 'for': ['idris']      }
+Plug 'purescript-contrib/purescript-vim',   { 'for': ['purescript'] }
+Plug 'vmchale/dhall-vim',                   { 'for': ['dhall']      }
+Plug 'wsdjeg/vim-livescript',               { 'for': ['livescript'] }
+Plug 'fasterthanlime/ooc.vim',              { 'for': ['ooc']        }
 
 
 call plug#end()
@@ -271,6 +272,8 @@ nnoremap <silent> <Leader>n <Cmd>NvimTreeFindFile<CR>
 lua <<EOF
 require('stabilize').setup()
 
+require('Comment').setup()
+
 require('gitsigns').setup({
   signcolumn = true,
   current_line_blame = true,
@@ -279,6 +282,10 @@ require('gitsigns').setup({
   },
   update_debounce = 250,
   max_file_length = 10000,
+})
+
+require("indent_blankline").setup({
+  use_treesitter = true,
 })
 
 local npairs = require("nvim-autopairs")
