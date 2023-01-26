@@ -169,15 +169,33 @@ require('telescope').setup({
     },
     sorting_strategy = 'ascending',
   },
+  pickers = {
+    command_history = {
+      theme = "dropdown",
+    },
+    find_files = {
+      theme = "dropdown",
+    },
+  },
 })
 
 require('telescope').load_extension('fzf')
 
 require('telescope').load_extension('coc')
+
+local builtin = require('telescope.builtin')
+local grep_string = function(use_regex)
+  return function(opts)
+    builtin.grep_string({ search = opts.args, use_regex = use_regex })
+  end
+end
+
+vim.api.nvim_create_user_command('R', grep_string(false), { nargs = 1 })
+vim.api.nvim_create_user_command('Rg', grep_string(true), { nargs = 1 })
 EOF
 
-nnoremap <silent> <C-p> <Cmd>Telescope find_files<CR>
-nnoremap <silent> <A-o> <Cmd>Telescope buffers<CR>
+nnoremap <silent> <C-p> <Cmd>Telescope find_files hidden=true<CR>
+nnoremap <silent> <A-o> <Cmd>Telescope buffers ignore_current_buffer=true<CR>
 nnoremap <silent> <A-r> <Cmd>Telescope live_grep<CR>
 nnoremap <silent> <A-t> <Cmd>Telescope grep_string<CR>
 nnoremap <silent> <A-h> <Cmd>Telescope command_history<CR>
