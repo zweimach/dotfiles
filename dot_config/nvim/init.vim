@@ -64,6 +64,8 @@ set autoindent
 set smartindent
 set ignorecase
 set smartcase
+set cursorline
+set cursorlineopt=number
 set list
 set listchars=tab:›\ ,trail:~,extends:»,precedes:«,lead:·,space:␣
 set expandtab
@@ -94,6 +96,7 @@ function! s:edge_custom() abort
   let l:palette = edge#get_palette(g:edge_style, 0, {})
   call edge#highlight('NormalFloat', l:palette.fg, l:palette.bg0)
   call edge#highlight('FloatBorder', l:palette.grey, l:palette.bg0)
+  call edge#highlight('CursorLineNr', l:palette.fg, l:palette.bg0)
 endfunction
 
 augroup EdgeCustom
@@ -116,7 +119,7 @@ require('lualine').setup({
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
+    lualine_c = { 'filename', 'g:coc_status' },
     lualine_x = { 'encoding', 'fileformat' },
     lualine_y = { 'filetype' },
     lualine_z = { 'location' },
@@ -263,7 +266,7 @@ EOF
 
 nnoremap <silent> <C-\> <Cmd>NvimTreeToggle<CR>
 nnoremap <silent> <Leader>r <Cmd>NvimTreeRefresh<CR>
-nnoremap <silent> <Leader>n <Cmd>NvimTreeFindFile<CR>
+nnoremap <silent> <Leader>n <Cmd>NvimTreeFindFileToggle<CR>
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -365,7 +368,7 @@ nmap <silent> <Leader>rn <Plug>(coc-rename)
 xmap <silent> <Leader>f <Plug>(coc-format-selected)
 nmap <silent> <Leader>f <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup CocGroup
   autocmd!
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')

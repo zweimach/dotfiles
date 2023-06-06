@@ -34,6 +34,11 @@
       "command": "dhall-lsp-server",
       "filetypes": ["dhall"]
     },
+    "elixir": {
+      "command": "elixir-ls",
+      "filetypes": ["elixir", "eelixir", "heex", "surface"],
+      "rootPatterns": ["mix.exs"]
+    },
     "elm": {
       "command": "elm-language-server",
       "filetypes": ["elm"],
@@ -41,7 +46,8 @@
     },
     "erlang": {
       "command": "erlang_ls",
-      "filetypes": ["erlang"]
+      "filetypes": ["erlang"],
+      "rootPatterns": ["rebar.config", "erlang.mk"]
     },
     "gleam": {
       "command": "gleam",
@@ -65,7 +71,7 @@
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
-      "filetypes": ["haskell", "lhaskell"],
+      "filetypes": ["haskell", "lhaskell", "cabal"],
       "rootPatterns": [
         "*.cabal",
         "cabal.project",
@@ -75,14 +81,8 @@
       ],
       "settings": {
         "haskell": {
-          "formattingProvider": "fourmolu",
-          "plugin": {
-            "fourmolu": {
-              "config": {
-                "external": true
-              }
-            }
-          }
+          "cabalFormattingProvider": "cabalfmt",
+          "formattingProvider": "fourmolu"
         }
       }
     },
@@ -97,17 +97,26 @@
       "filetypes": ["purescript"],
       "rootPatterns": ["psc-package.json", "spago.dhall"]
     },
+    "racket": {
+      "command": "racket",
+      "args": ["-l", "racket-langserver"],
+      "filetypes": ["scheme", "racket"]
+    },
     "standardml": {
       "command": "millet",
       "filetypes": ["sml"],
       "rootPatterns": ["millet.toml"]
+    },
+    "svelte": {
+      "command": "svelteserver",
+      "args": ["--stdio"],
+      "filetypes": ["svelte"]
     },
     "vala": {
       "command": "vala-language-server",
       "filetypes": ["vala"]
     }
   },
-  "notification.statusLineProgress": false,
   "phpstan.download.checkOnStartup": false,
   "prettier.disableLanguages": [],
   "python.formatting.provider": "black",
@@ -157,10 +166,14 @@
   "tailwindCSS.includeLanguages": {
     "elm": "html"
   },
+  "tsserver.useLocalTsdk": true,
   "semanticTokens.filetypes": ["*"],
   "suggest.noselect": true,
-  "svelte.enable-ts-plugin": true,
-  "svelte.plugin.svelte.format.enable": false,
-  "volar.formatting.enable": false,
-  "xml.format.enabled": false
+  "volar.disableFormatting": true,
+  "volar.useWorkspaceTsdk": true,
+  "xml.format.enabled": false,
+  "xml.server.workDir": "~/.cache/lemminx",
+  "zig.path": "zls"
 }
+
+// vim: set ft=jsonc sw=0 ts=2 et :
