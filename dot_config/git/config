@@ -9,11 +9,8 @@ helper = store
 [color]
 ui = auto
 
-[pager]
-diff = delta
-log = delta
-reflog = delta
-show = delta
+[core]
+pager = delta
 
 [delta]
 line-numbers = true
@@ -22,6 +19,9 @@ syntax-theme = OneHalfDark
 
 [interactive]
 diffFilter = delta --color-only --features=interactive
+
+[merge]
+conflictStyle = zdiff3
 
 [diff]
 colorMoved = default
@@ -33,10 +33,10 @@ program = gpg2
 gpgsign = true
 
 [filter "lfs"]
+clean = git-lfs clean -- %f
 smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
 required = true
-clean = git-lfs clean -- %f
 
 [log]
 mailmap = true

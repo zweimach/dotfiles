@@ -44,8 +44,8 @@ set $term $TERMINAL
 set $menu $MENU -S drun
 set $reader $READER
 set $browser $BROWSER
-set $explorer $TERMINAL -e $EXPLORER
-set $editor $TERMINAL -e $EDITOR
+set $explorer $TERMINAL -t $EXPLORER -e $EXPLORER
+set $editor $TERMINAL -t $EDITOR -e $EDITOR
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
