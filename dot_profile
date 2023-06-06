@@ -69,6 +69,7 @@ export PATH="$PATH":"$GOPATH/bin"
 # ┃ Clojure / Leiningen
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 export LEIN_HOME="$XDG_DATA_HOME/lein"
+export LEIN_SUPPRESS_USER_LEVEL_REPO_WARNINGS=1
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Elm
