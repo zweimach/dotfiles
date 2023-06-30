@@ -47,6 +47,7 @@ Plug 'purescript-contrib/purescript-vim',   { 'for': ['purescript'] }
 Plug 'vmchale/dhall-vim',                   { 'for': ['dhall']      }
 Plug 'wsdjeg/vim-livescript',               { 'for': ['livescript'] }
 Plug 'fasterthanlime/ooc.vim',              { 'for': ['ooc']        }
+Plug 'rescript-lang/vim-rescript',          { 'for': ['rescript']   }
 
 
 call plug#end()
@@ -78,7 +79,7 @@ set mousemodel=extend
 set signcolumn=yes
 set shortmess+=c
 set clipboard+=unnamedplus
-set completeopt=menu,menuone,noselect
+set completeopt+=menu,menuone,noselect
 set formatoptions-=tc
 set scrolloff=8
 set undofile
@@ -93,7 +94,8 @@ let g:edge_disable_italic_comment  = 1
 let g:edge_better_performance      = 1
 
 function! s:edge_custom() abort
-  let l:palette = edge#get_palette(g:edge_style, 0, {})
+  let l:configuration = edge#get_configuration()
+  let l:palette = edge#get_palette(l:configuration.style, l:configuration.dim_foreground, l:configuration.colors_override)
   call edge#highlight('NormalFloat', l:palette.fg, l:palette.bg0)
   call edge#highlight('FloatBorder', l:palette.grey, l:palette.bg0)
   call edge#highlight('CursorLineNr', l:palette.fg, l:palette.bg0)
@@ -203,6 +205,8 @@ nnoremap <silent> <A-o> <Cmd>Telescope buffers ignore_current_buffer=true<CR>
 nnoremap <silent> <A-r> <Cmd>Telescope live_grep<CR>
 nnoremap <silent> <A-t> <Cmd>Telescope grep_string<CR>
 nnoremap <silent> <A-h> <Cmd>Telescope command_history<CR>
+nnoremap <silent> <A-m> <Cmd>Telescope marks<CR>
+nnoremap <silent> <A-n> <Cmd>Telescope jumplist<CR>
 
 
 " ┏━━━━━━━━━━━━━━━━━━━━━━━
@@ -337,8 +341,8 @@ inoremap <silent> <expr> <C-Space> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics.
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nnoremap <silent> gd <Cmd>Telescope coc definitions<CR>
@@ -362,11 +366,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <silent> <Leader>rn <Plug>(coc-rename)
+nnoremap <silent> <Leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <silent> <Leader>f <Plug>(coc-format-selected)
-nmap <silent> <Leader>f <Plug>(coc-format-selected)
+xnoremap <silent> <Leader>f <Plug>(coc-format-selected)
+nnoremap <silent> <Leader>f <Plug>(coc-format-selected)
 
 augroup CocGroup
   autocmd!
@@ -376,28 +380,28 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<Leader>aap` for current paragraph
-xmap <silent> <Leader>a <Plug>(coc-codeaction-selected)
-nmap <silent> <Leader>a <Plug>(coc-codeaction-selected)
+xnoremap <silent> <Leader>a <Plug>(coc-codeaction-selected)
+nnoremap <silent> <Leader>a <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <silent> <Leader>ac <Plug>(coc-codeaction)
+nnoremap <silent> <Leader>ac <Plug>(coc-codeaction)
 " Remap keys for apply code actions affect whole buffer
-nmap <silent> <Leader>as <Plug>(coc-codeaction-source)
+nnoremap <silent> <Leader>as <Plug>(coc-codeaction-source)
 " Apply AutoFix to problem on the current line.
-nmap <silent> <Leader>qf <Plug>(coc-fix-current)
+nnoremap <silent> <Leader>qf <Plug>(coc-fix-current)
 " Run the Code Lens action on the current line.
-nmap <silent> <Leader>cl <Plug>(coc-codelens-action)
+nnoremap <silent> <Leader>cl <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap <silent> if <Plug>(coc-funcobj-i)
-omap <silent> if <Plug>(coc-funcobj-i)
-xmap <silent> af <Plug>(coc-funcobj-a)
-omap <silent> af <Plug>(coc-funcobj-a)
-xmap <silent> ic <Plug>(coc-classobj-i)
-omap <silent> ic <Plug>(coc-classobj-i)
-xmap <silent> ac <Plug>(coc-classobj-a)
-omap <silent> ac <Plug>(coc-classobj-a)
+xnoremap <silent> if <Plug>(coc-funcobj-i)
+onoremap <silent> if <Plug>(coc-funcobj-i)
+xnoremap <silent> af <Plug>(coc-funcobj-a)
+onoremap <silent> af <Plug>(coc-funcobj-a)
+xnoremap <silent> ic <Plug>(coc-classobj-i)
+onoremap <silent> ic <Plug>(coc-classobj-i)
+xnoremap <silent> ac <Plug>(coc-classobj-a)
+onoremap <silent> ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups.
 " NOTE: coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750.
@@ -410,8 +414,8 @@ vnoremap <silent> <nowait> <expr> <C-b> coc#float#has_scroll() ? coc#float#scrol
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+nnoremap <silent> <C-s> <Plug>(coc-range-select)
+xnoremap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')

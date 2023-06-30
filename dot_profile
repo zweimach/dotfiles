@@ -36,7 +36,6 @@ export PATH="$XDG_BIN_HOME":"$PATH"
 # ┃ Haskell / Cabal
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 export GHCUP_USE_XDG_DIRS=true
-export PATH="$PATH":"$HOME/.cabal/bin"
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Rust / Cargo
@@ -75,6 +74,17 @@ export LEIN_SUPPRESS_USER_LEVEL_REPO_WARNINGS=1
 # ┃ Elm
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 export ELM_HOME="$XDG_CONFIG_HOME/elm"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ OCaml / OPAM
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export OPAMROOT="$XDG_DATA_HOME/opam"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━
+# ┃ Elixir / Hex
+# ┗━━━━━━━━━━━━━━━━━━━━━━━
+export MIX_HOME="$XDG_DATA_HOME/mix"
+export HEX_HOME="$XDG_DATA_HOME/hex"
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Gradle
