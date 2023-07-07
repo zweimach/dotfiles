@@ -22,9 +22,12 @@ fzf-workspace-widget() {
 	cmd="${FZF_ALT_O_COMMAND:-"command ls -1 $WORKSPACE"}"
 	dir=$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_O_OPTS" $(__fzfcmd) +m) && printf 'cd -- %q' "$WORKSPACE/$dir"
 }
-bind -m emacs-standard '"\eo": " \C-b\C-k \C-u`fzf-workspace-widget`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-bind -m vi-command '"\eo": "\C-z\eo\C-z"'
-bind -m vi-insert '"\eo": "\C-z\eo\C-z"'
+
+if [[ ${SHELLOPTS} =~ (vi|emacs) ]]; then
+	bind -m emacs-standard '"\eo": " \C-b\C-k \C-u`fzf-workspace-widget`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+	bind -m vi-command '"\eo": "\C-z\eo\C-z"'
+	bind -m vi-insert '"\eo": "\C-z\eo\C-z"'
+fi
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ starship & zoxide
@@ -59,7 +62,7 @@ alert() {
 }
 
 library-menu() {
-	fd -e pdf -e djvu '' Library/\[Tech\]* | $MENU --dmenu | xargs -d '\n' -I % $READER "%"
+	fd -e pdf -e djvu '' Library/\[{Tech,Math}\]* | $MENU --dmenu | xargs -d '\n' -I % $READER "%"
 }
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
