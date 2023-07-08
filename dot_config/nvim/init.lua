@@ -16,6 +16,7 @@ require('lazy').setup({
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  'nvim-treesitter/playground',
   'nvim-lualine/lualine.nvim',
   'nvim-tree/nvim-web-devicons',
   'nvim-tree/nvim-tree.lua',
@@ -145,6 +146,42 @@ require('lualine').setup({
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━
 local parsers = require('nvim-treesitter.parsers')
 
+parsers.get_parser_configs().standard_ml = {
+  install_info = {
+    -- url = 'https://github.com/stonebuddha/tree-sitter-sml',
+    url = '~/Workspace/tree-sitter-sml',
+    files = { 'src/parser.c', 'src/scanner.cc' },
+  },
+  filetype = 'sml',
+}
+
+parsers.get_parser_configs().carp = {
+  install_info = {
+    -- url = 'https://github.com/GrayJack/tree-sitter-carp',
+    url = '~/Workspace/tree-sitter-carp',
+    files = { 'src/parser.c', 'src/scanner.c' },
+  },
+  filetype = 'carp',
+}
+
+parsers.get_parser_configs().rescript = {
+  install_info = {
+    -- url = 'https://github.com/nkrkv/tree-sitter-rescript',
+    url = '~/Workspace/tree-sitter-rescript',
+    files = { 'src/parser.c', 'src/scanner.c' },
+  },
+  filetype = 'rescript',
+}
+
+parsers.get_parser_configs().c3 = {
+  install_info = {
+    -- url = 'https://github.com/zwiemach/tree-sitter-c3',
+    url = '~/Workspace/tree-sitter-c3',
+    files = { 'src/parser.c' },
+  },
+  filetype = 'c3',
+}
+
 require('nvim-treesitter.configs').setup({
   ensure_installed = 'all',
   highlight = {
@@ -153,6 +190,14 @@ require('nvim-treesitter.configs').setup({
   },
   indent = {
     enable = true,
+  },
+  playground = {
+    enable = true,
+  },
+  query_linter = {
+    enable = true,
+    use_virtual_text = true,
+    lint_events = { 'BufWrite', 'CursorHold' },
   },
 })
 

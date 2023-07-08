@@ -102,6 +102,12 @@
       "args": ["-l", "racket-langserver"],
       "filetypes": ["scheme", "racket"]
     },
+    "rescript": {
+      "module": "~/.local/share/nvim/lazy/vim-rescript/server/out/server.js",
+      "args": ["--node-ipc"],
+      "filetypes": ["rescript"],
+      "rootPatterns": ["bsconfig.json"]
+    },
     "standardml": {
       "command": "millet",
       "filetypes": ["sml"],
