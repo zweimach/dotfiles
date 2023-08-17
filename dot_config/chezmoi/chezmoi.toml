@@ -1,4 +1,4 @@
-sourceDir = "/home/zweimach/Workspace/dotfiles"
+sourceDir = "~/Workspace/dotfiles"
 
 [diff]
 format = "git"

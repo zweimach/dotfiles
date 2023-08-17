@@ -81,7 +81,7 @@
       ],
       "settings": {
         "haskell": {
-          "cabalFormattingProvider": "cabalfmt",
+          "cabalFormattingProvider": "cabal-fmt",
           "formattingProvider": "fourmolu"
         }
       }

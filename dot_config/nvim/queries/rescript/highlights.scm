@@ -5,6 +5,7 @@
 
 (array_pattern (value_identifier) @variable)
 (as_aliasing (value_identifier) @variable)
+(external_declaration (value_identifier) @variable)
 (parenthesized_pattern (value_identifier) @variable)
 
 (arguments
@@ -132,6 +133,10 @@
 (let_binding
   (value_identifier) @function
   (function))
+
+(external_declaration
+  (value_identifier) @function
+  (type_annotation (function_type)))
 
 ; parameter(s) in parens
 [
