@@ -26,7 +26,8 @@ vim.opt.clipboard:append('unnamedplus')
 vim.opt.completeopt:append('menu')
 vim.opt.completeopt:append('menuone')
 vim.opt.completeopt:append('noselect')
-vim.opt.formatoptions:remove('tc')
+vim.opt.formatoptions:remove('t')
+vim.opt.formatoptions:remove('c')
 vim.opt.scrolloff = 8
 vim.opt.undofile = true
 vim.opt.showmode = false
