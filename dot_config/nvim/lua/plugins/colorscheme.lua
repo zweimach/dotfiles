@@ -3,6 +3,8 @@
 return {
   {
     'sainnhe/edge',
+    lazy = false,
+    priority = 200,
     config = function()
       vim.o.background = 'dark'
       vim.g.edge_style = 'neon'
@@ -10,9 +12,9 @@ return {
       vim.g.edge_disable_italic_comment = 1
       vim.g.edge_better_performance = 1
 
-      vim.api.nvim_create_augroup('EdgeCustom', {})
+      local augroup = vim.api.nvim_create_augroup('EdgeCustom', { clear = true })
       vim.api.nvim_create_autocmd('ColorScheme', {
-        group = 'EdgeCustom',
+        group = augroup,
         pattern = { 'edge' },
         callback = function()
           local configuration = vim.fn['edge#get_configuration']()

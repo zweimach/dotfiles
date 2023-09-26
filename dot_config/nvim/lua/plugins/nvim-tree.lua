@@ -47,8 +47,10 @@ return {
       },
     })
 
-    vim.keymap.set('n', '<C-\\>', '<Cmd>NvimTreeToggle<CR>', { noremap = true, silent = true })
-    vim.keymap.set('n', '<Leader>r', '<Cmd>NvimTreeRefresh<CR>', { noremap = true, silent = true })
-    vim.keymap.set('n', '<Leader>n', '<Cmd>NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
+    local opts = { noremap = true, silent = true }
+
+    vim.keymap.set('n', '<C-\\>', '<Cmd>NvimTreeToggle<CR>', opts)
+    vim.keymap.set('n', '<Leader>r', '<Cmd>NvimTreeRefresh<CR>', opts)
+    vim.keymap.set('n', '<Leader>n', '<Cmd>NvimTreeFindFileToggle<CR>', opts)
   end,
 }

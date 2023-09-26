@@ -4,6 +4,7 @@
 .cache
 .vim
 .rgignore
+.neoconf.json
 compile_commands.json
 node_modules
 dist-newstyle

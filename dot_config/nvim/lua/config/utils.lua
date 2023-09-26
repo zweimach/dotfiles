@@ -2,11 +2,23 @@
 
 vim.api.nvim_create_user_command('Update', function()
   require('lazy').sync({ wait = true })
-  vim.cmd.CocUpdate()
+  vim.cmd.MasonUpdate()
 end, { nargs = 0 })
 
+local augroup = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup,
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = 'HighlightedyankRegion',
+      timeout = 400,
+    })
+  end,
+  pattern = '*',
+})
+
 local function flow(default)
-  return function(path, bufnr)
+  return function(_, bufnr)
     local content = vim.filetype.getlines(bufnr, 1)
     if vim.filetype.matchregex(content, [[//\s*@flow]]) then
       return 'javascriptflow'

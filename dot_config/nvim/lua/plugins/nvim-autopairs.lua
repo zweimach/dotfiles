@@ -4,17 +4,13 @@ return {
   'windwp/nvim-autopairs',
   config = function()
     local npairs = require('nvim-autopairs')
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    local cmp = require('cmp')
 
     npairs.setup({
       map_cr = false,
     })
 
-    vim.keymap.set('i', '<CR>', function()
-      if vim.fn['coc#pum#visible']() ~= 0 then
-        return vim.fn['coc#pum#confirm']()
-      else
-        return npairs.autopairs_cr()
-      end
-    end, { expr = true, noremap = true, silent = true })
+    cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 }

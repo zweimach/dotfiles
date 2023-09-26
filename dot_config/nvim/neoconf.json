@@ -1,0 +1,43 @@
+// vim: set ft=jsonc sw=0 ts=2 et :
+
+{
+  "neoconf": {
+    "plugins": {
+      "jsonls": {
+        "configured_servers_only": false
+      }
+    }
+  },
+  "lspconfig": {
+    "denols": {
+      "deno.enable": false
+    },
+    "hls": {
+      "haskell.cabalFormattingProvider": "cabal-fmt",
+      "haskell.formattingProvider": "fourmolu",
+      "haskell.plugin.fourmolu.config.external": true
+    },
+    "lemminx": {
+      "xml.format.enabled": false,
+      "xml.server.workDir": "~/.cache/lemminx"
+    },
+    "tailwindcss": {
+      "tailwindCSS.includeLanguages": {
+        "elm": "html"
+      },
+      "tailwindCSS.experimental.classRegex": [
+        "\\bclass[\\s(<|]+\"([^\"]*)\"",
+        "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\"",
+        "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+        "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+        "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"[^\"]*\"\\s*\\+{2}\\s*\"([^\"]*)\"",
+        "\\bclassList[\\s\\[\\(]+\"([^\"]*)\"",
+        "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\"",
+        "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+      ]
+    },
+    "volar": {
+      "volar.useWorkspaceTsdk": true
+    }
+  }
+}

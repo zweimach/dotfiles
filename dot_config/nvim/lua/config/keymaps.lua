@@ -3,7 +3,6 @@
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
-map('n', '<Leader>g', '<Cmd>Gitsigns preview_hunk_inline<CR>', opts)
 map('n', '<A-g>', '<Cmd>tab Git<CR>', opts)
 map('n', '<C-j>', '<Cmd>bnext<CR>', opts)
 map('n', '<A-j>', '<Cmd>tabnext<CR>', opts)
