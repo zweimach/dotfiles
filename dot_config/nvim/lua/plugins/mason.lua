@@ -23,14 +23,12 @@ return {
     'jay-babu/mason-null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'jose-elias-alvarez/null-ls.nvim',
+      'nvimtools/none-ls.nvim',
     },
-    config = function()
-      require('mason-null-ls').setup({
-        ensure_installed = { 'stylua' },
-        automatic_installation = false,
-        handlers = {},
-      })
-    end,
+    opts = {
+      ensure_installed = { 'stylua' },
+      automatic_installation = false,
+      handlers = {},
+    },
   },
 }

@@ -1,7 +1,7 @@
 -- vim: set sw=0 ts=2 et :
 
 return {
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
