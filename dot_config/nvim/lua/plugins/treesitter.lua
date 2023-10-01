@@ -4,7 +4,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
-    -- 'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/playground',
   },
   build = ':TSUpdate',
@@ -48,13 +48,40 @@ return {
     }
 
     require('nvim-treesitter.configs').setup({
-      ensure_installed = 'all',
+      ensure_installed = { 'json', 'lua', 'query', 'vimdoc', 'vim' },
+      auto_install = true,
+      sync_install = false,
+      ignore_install = {},
+      modules = {},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
       },
       indent = {
         enable = true,
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-Space>',
+          node_incremental = '<C-Space>',
+          node_decremental = '<A-Space>',
+          scope_incremental = '<C-s>',
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ['aa'] = '@parameter.outer',
+            ['ia'] = '@parameter.inner',
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
+          },
+        },
       },
       playground = {
         enable = true,

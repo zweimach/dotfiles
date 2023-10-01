@@ -47,7 +47,8 @@ return {
     end, opts)
     vim.keymap.set('n', '<A-r>', builtin.live_grep, opts)
     vim.keymap.set('n', '<A-t>', builtin.grep_string, opts)
-    vim.keymap.set('n', '<A-h>', builtin.command_history, opts)
+    vim.keymap.set('n', '<A-c>', builtin.command_history, opts)
+    vim.keymap.set('n', '<A-h>', builtin.help_tags, opts)
     vim.keymap.set('n', '<A-m>', builtin.marks, opts)
     vim.keymap.set('n', '<A-n>', builtin.jumplist, opts)
   end,
