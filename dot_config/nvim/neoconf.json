@@ -8,6 +8,10 @@
       }
     }
   },
+  "editor": {
+    "formatOnSave": true,
+    "semanticHighlighting": false
+  },
   "lspconfig": {
     "denols": {
       "deno.enable": false

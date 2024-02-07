@@ -1,18 +1,48 @@
 -- vim: set sw=0 ts=2 et :
 
+local function getEditorConfig()
+  local defaults = {
+    formatOnSave = false,
+    semanticHighlighting = false,
+  }
+  local neoconf = require('neoconf')
+  local editor = neoconf.get('editor', defaults)
+  return editor
+end
+
+local function getLspConfig()
+  local defaults = {
+    denols = {
+      ['deno.enable'] = false,
+    },
+    intelephense = {
+      ['intelephense.licenceKey'] = nil,
+    },
+    rescriptls = {},
+    volar = {
+      ['volar.takeOverMode.enabled'] = false,
+    },
+  }
+  local neoconf = require('neoconf')
+  local lspconfig = neoconf.get('lspconfig', defaults)
+  return lspconfig
+end
+
 --- @return nil|string
 local function getLicenceKey()
-  local neoconf = require('neoconf')
-  local defaults = { intelephense = { ['intelephense.licenceKey'] = nil } }
-  local lspconfig = neoconf.get('lspconfig', defaults)
+  local lspconfig = getLspConfig()
   return lspconfig.intelephense['intelephense.licenceKey']
 end
 
 --- @return boolean
+local function isDenoEnabled()
+  local lspconfig = getLspConfig()
+  return lspconfig.denols['deno.enable']
+end
+
+--- @return boolean
 local function isTakeOverModeEnabled()
-  local neoconf = require('neoconf')
-  local defaults = { volar = { ['volar.takeOverMode.enabled'] = false } }
-  local lspconfig = neoconf.get('lspconfig', defaults)
+  local lspconfig = getLspConfig()
   return lspconfig.volar['volar.takeOverMode.enabled']
 end
 
@@ -40,6 +70,11 @@ return {
     lsp_zero.on_attach(function(client, bufnr)
       local opts = { buffer = bufnr, noremap = true, silent = true }
       local capabilities = client.server_capabilities
+      local editorConfig = getEditorConfig()
+
+      if not editorConfig.semanticHighlighting then
+        client.server_capabilities.semanticTokensProvider = nil
+      end
 
       local function map(mode, keys, func, desc)
         if desc then
@@ -125,7 +160,15 @@ return {
           async = false,
           bufnr = bufnr,
           timeout_ms = 10000,
-          filter = disallowFormat({ 'jsonls', 'lua_ls', 'tsserver', 'yamlls', 'volar' }),
+          filter = disallowFormat({
+            'cssls',
+            'html',
+            'jsonls',
+            'lua_ls',
+            'tsserver',
+            'volar',
+            'yamlls',
+          }),
         })
       end
 
@@ -135,7 +178,7 @@ return {
       map('x', '<F3>', format, 'Document Format')
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, { desc = 'Format current buffer with LSP' })
 
-      if capabilities.documentFormattingProvider then
+      if editorConfig.formatOnSave and capabilities.documentFormattingProvider then
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = augroup,
           buffer = bufnr,
@@ -157,17 +200,17 @@ return {
     })
 
     lsp_zero.setup_servers({
-      'denols',
-      'erlangls',
       'gleam',
-      'millet',
+      'metals',
       'ocamllsp',
       'racket_langserver',
-      'vala_ls',
       'zls',
     })
-    lspconfig.elixirls.setup({ cmd = { 'elixir-ls' } })
     lspconfig.hls.setup({ filetypes = { 'haskell', 'lhaskell', 'cabal' } })
+
+    if isDenoEnabled() then
+      lspconfig.denols.setup({})
+    end
 
     local schemastore = require('schemastore')
     lspconfig.jsonls.setup({
@@ -191,8 +234,7 @@ return {
       lspconfig.intelephense.setup({ init_options = { licenceKey = licenceKey } })
     end
 
-    local volarTakeOverMode = isTakeOverModeEnabled()
-    if volarTakeOverMode then
+    if isTakeOverModeEnabled() then
       lspconfig.volar.setup({ filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' } })
     end
   end,
