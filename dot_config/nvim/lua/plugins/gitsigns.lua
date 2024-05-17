@@ -23,6 +23,8 @@ return {
       end
 
       map('n', '<Leader>ghi', gs.preview_hunk_inline, 'Preview [H]unk [I]nline')
+      map('n', '[h', gs.prev_hunk, 'Previous [H]unk')
+      map('n', ']h', gs.next_hunk, 'Next [H]unk')
     end,
   },
 }

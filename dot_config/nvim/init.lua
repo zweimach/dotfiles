@@ -3,6 +3,7 @@
 -- TODO: signature help
 -- TODO: quick fix
 -- TODO: codelens
+-- TODO: inlay hints
 -- TODO: organize import
 -- TODO: outline
 -- TODO: clipboard management

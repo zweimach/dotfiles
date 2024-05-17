@@ -12,8 +12,10 @@ return {
 
     telescope.setup({
       defaults = {
+        layout_strategy = 'vertical',
         layout_config = {
           prompt_position = 'top',
+          vertical = { width = 0.8 },
         },
         sorting_strategy = 'ascending',
       },
@@ -21,16 +23,14 @@ return {
         command_history = {
           theme = 'dropdown',
         },
-        find_files = {
-          theme = 'dropdown',
-        },
       },
     })
     telescope.load_extension('fzf')
 
+    local ripgrep_args = { '--hidden' }
     local grep_string = function(use_regex)
       return function(opts)
-        builtin.grep_string({ search = opts.args, use_regex = use_regex })
+        builtin.grep_string({ search = opts.args, use_regex = use_regex, additional_args = ripgrep_args })
       end
     end
 

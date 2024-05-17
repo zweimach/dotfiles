@@ -11,5 +11,4 @@ return {
   { 'edwinb/idris2-vim', ft = 'idris' },
   { 'fasterthanlime/ooc.vim', ft = 'ooc' },
   { 'wsdjeg/vim-livescript', ft = 'livescript' },
-  { 'purescript-contrib/purescript-vim', ft = 'purescript' },
 }

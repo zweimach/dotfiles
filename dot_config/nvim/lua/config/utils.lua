@@ -19,11 +19,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 local function flow(default)
   return function(_, bufnr)
-    local content = vim.filetype.getlines(bufnr, 1)
-    if vim.filetype.matchregex(content, [[//\s*@flow]]) then
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 1, 10, false)
+    local content = table.concat(lines, '')
+    if string.match(content, [[@flow]]) then
       return 'javascriptflow'
+    else
+      return default
     end
-    return default
   end
 end
 
@@ -31,9 +33,13 @@ vim.filetype.add({
   extension = {
     c3 = 'c3',
     carp = 'carp',
-    hurl = 'hurl',
     flow = 'javascriptflow',
+    hurl = 'hurl',
+    hx = 'haxe',
     js = flow('javascript'),
     jsx = flow('javascriptreact'),
+    re = 'reason',
+    rei = 'reason',
+    roc = 'roc',
   },
 })
