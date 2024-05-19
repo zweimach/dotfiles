@@ -9,8 +9,10 @@
     }
   },
   "editor": {
+    "documentHighlight": [true, { "cabal": false }],
     "formatOnSave": true,
-    "semanticHighlighting": false
+    "semanticHighlighting": true,
+    "showCompletionSource": false
   },
   "lspconfig": {
     "denols": {
@@ -19,11 +21,28 @@
     "hls": {
       "haskell.cabalFormattingProvider": "cabal-fmt",
       "haskell.formattingProvider": "fourmolu",
-      "haskell.plugin.fourmolu.config.external": true
+      "haskell.plugin": {
+        "fourmolu": {
+          "config": {
+            "external": true
+          }
+        }
+      }
     },
     "lemminx": {
       "xml.format.enabled": false,
       "xml.server.workDir": "~/.cache/lemminx"
+    },
+    "rescriptls": {
+      "rescript.settings.autoRunCodeAnalysis": true,
+      "rescript.settings.codeLens": true,
+      "rescript.settings.incrementalTypechecking.acrossFiles": true,
+      "rescript.settings.incrementalTypechecking.enabled": true,
+      "rescript.settings.inlayHints.enable": true
+    },
+    "purescriptls": {
+      "purescript.addNpmPath": true,
+      "purescript.formatter": "purs-tidy"
     },
     "tailwindcss": {
       "tailwindCSS.includeLanguages": {
@@ -41,7 +60,7 @@
       ]
     },
     "volar": {
-      "volar.useWorkspaceTsdk": true
+      "vue.hybridMode": false
     }
   }
 }

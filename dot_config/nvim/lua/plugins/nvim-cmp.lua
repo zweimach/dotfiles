@@ -15,6 +15,8 @@ return {
     local lspkind = require('lspkind')
     local luasnip = require('luasnip')
     local cmp_action = require('lsp-zero').cmp_action()
+    local utils = require('utils')
+    local editor_config = require('utils.config').get_editor_config()
 
     local bordered = cmp.config.window.bordered({
       winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
@@ -32,6 +34,8 @@ return {
         { name = 'path' },
       }),
       formatting = {
+        expandable_indicator = true,
+        fields = { 'abbr', 'kind', 'menu' },
         format = lspkind.cmp_format({
           mode = 'symbol',
           maxwidth = 50,
@@ -43,6 +47,8 @@ return {
             nvim_lsp = '[LSP]',
             path = '[Path]',
           },
+          show_labelDetails = editor_config.showCompletionSource,
+          before = utils.show_lsp_server_name,
         }),
       },
       snippet = {

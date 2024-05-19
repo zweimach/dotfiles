@@ -12,5 +12,5 @@
 
 require('config.options')
 require('config.keymaps')
-require('config.utils')
+require('config.autocmd')
 require('config.lazy-nvim')

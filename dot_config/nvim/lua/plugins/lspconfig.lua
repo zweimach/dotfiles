@@ -1,58 +1,5 @@
 -- vim: set sw=0 ts=2 et :
 
-local function getEditorConfig()
-  local defaults = {
-    formatOnSave = false,
-    semanticHighlighting = false,
-  }
-  local neoconf = require('neoconf')
-  local editor = neoconf.get('editor', defaults)
-  return editor
-end
-
-local function getLspConfig()
-  local defaults = {
-    denols = {
-      ['deno.enable'] = false,
-    },
-    intelephense = {
-      ['intelephense.licenceKey'] = nil,
-    },
-    rescriptls = {},
-    volar = {
-      ['volar.takeOverMode.enabled'] = false,
-    },
-  }
-  local neoconf = require('neoconf')
-  local lspconfig = neoconf.get('lspconfig', defaults)
-  return lspconfig
-end
-
---- @return nil|string
-local function getLicenceKey()
-  local lspconfig = getLspConfig()
-  return lspconfig.intelephense['intelephense.licenceKey']
-end
-
---- @return boolean
-local function isDenoEnabled()
-  local lspconfig = getLspConfig()
-  return lspconfig.denols['deno.enable']
-end
-
---- @return boolean
-local function isTakeOverModeEnabled()
-  local lspconfig = getLspConfig()
-  return lspconfig.volar['volar.takeOverMode.enabled']
-end
-
-local function disallowFormat(servers)
-  --- @param client lsp.Client
-  return function(client)
-    return not vim.tbl_contains(servers, client.name)
-  end
-end
-
 return {
   'VonHeikemen/lsp-zero.nvim',
   dependencies = {
@@ -64,15 +11,16 @@ return {
     local lsp_zero = require('lsp-zero')
     local lspconfig = require('lspconfig')
     local telescope_builtin = require('telescope.builtin')
+    local config = require('utils.config')
 
     local augroup = vim.api.nvim_create_augroup('LspZeroSetup', { clear = true })
 
     lsp_zero.on_attach(function(client, bufnr)
       local opts = { buffer = bufnr, noremap = true, silent = true }
       local capabilities = client.server_capabilities
-      local editorConfig = getEditorConfig()
+      local editor_config = config.get_editor_config()
 
-      if not editorConfig.semanticHighlighting then
+      if not editor_config.semanticHighlighting then
         client.server_capabilities.semanticTokensProvider = nil
       end
 
@@ -113,14 +61,15 @@ return {
       map('n', '[d', vim.diagnostic.goto_prev, 'Next [D]iagnostic')
       map('n', ']d', vim.diagnostic.goto_next, 'Previous [D]iagnostic')
 
-      local function documentDiagnostics()
+      local function document_diagnostics()
         telescope_builtin.diagnostics({ bufnr = 0 })
       end
 
-      map('n', '<Leader>dd', documentDiagnostics, '[D]ocument [D]iagnostics')
+      map('n', '<Leader>dd', document_diagnostics, '[D]ocument [D]iagnostics')
       map('n', '<Leader>wd', telescope_builtin.diagnostics, '[W]orkspace [D]iagnostics')
 
-      if capabilities.documentHighlightProvider then
+      local document_highlight_enabled = config.document_highlight_enabled(editor_config, vim.bo[bufnr].filetype)
+      if document_highlight_enabled and capabilities and capabilities.documentHighlightProvider then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           group = augroup,
           buffer = bufnr,
@@ -160,9 +109,10 @@ return {
           async = false,
           bufnr = bufnr,
           timeout_ms = 10000,
-          filter = disallowFormat({
+          filter = config.disallow_format({
             'cssls',
             'html',
+            'intelephense',
             'jsonls',
             'lua_ls',
             'tsserver',
@@ -178,7 +128,7 @@ return {
       map('x', '<F3>', format, 'Document Format')
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, { desc = 'Format current buffer with LSP' })
 
-      if editorConfig.formatOnSave and capabilities.documentFormattingProvider then
+      if editor_config.formatOnSave and capabilities and capabilities.documentFormattingProvider then
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = augroup,
           buffer = bufnr,
@@ -206,11 +156,18 @@ return {
       'racket_langserver',
       'zls',
     })
+    lspconfig.flow.setup({ filetypes = { 'javascript', 'javascriptreact', 'javascriptflow' } })
     lspconfig.hls.setup({ filetypes = { 'haskell', 'lhaskell', 'cabal' } })
 
-    if isDenoEnabled() then
+    if config.is_deno_enabled() then
       lspconfig.denols.setup({})
+      lspconfig.tsserver.setup({ autostart = false })
     end
+
+    local rescriptls_config = config.get_rescriptls_config()
+    lspconfig.rescriptls.setup({
+      init_options = { extensionConfiguration = rescriptls_config },
+    })
 
     local schemastore = require('schemastore')
     lspconfig.jsonls.setup({
@@ -229,13 +186,42 @@ return {
       },
     })
 
-    local licenceKey = getLicenceKey()
-    if licenceKey then
-      lspconfig.intelephense.setup({ init_options = { licenceKey = licenceKey } })
-    end
+    local licence_key, global_storage_path = config.get_intelephense_config()
+    lspconfig.intelephense.setup({
+      init_options = {
+        licenceKey = licence_key,
+        globalStoragePath = global_storage_path,
+      },
+    })
 
-    if isTakeOverModeEnabled() then
-      lspconfig.volar.setup({ filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' } })
+    local vue_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+    if config.is_vue_hybrid_mode() then
+      local mason_registry = require('mason-registry')
+      local vue_language_server = mason_registry.get_package('vue-language-server')
+      local install_path = vue_language_server:get_install_path()
+      local location = string.format('%s/node_modules/%s/node_modules', install_path, '@vue/language-server')
+      lspconfig.tsserver.setup({
+        filetypes = vue_filetypes,
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = location,
+              languages = { 'vue' },
+            },
+          },
+        },
+      })
+    else
+      lspconfig.tsserver.setup({ autostart = false })
+      lspconfig.volar.setup({
+        filetypes = vue_filetypes,
+        init_options = {
+          vue = {
+            hybridMode = false,
+          },
+        },
+      })
     end
   end,
 }
