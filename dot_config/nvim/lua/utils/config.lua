@@ -51,15 +51,13 @@ end
 ---@return nil|string, string
 function M.get_intelephense_config()
   local storage_path = vim.fs.normalize('$XDG_DATA_HOME/intelephense')
-  -- TODO: update for neovim 0.10
-  -- local fd = vim.loop.fs_open(vim.fs.joinpath(storagePath, 'licence.txt'), 'r', 438)
-  local fd = vim.loop.fs_open(table.concat({ storage_path, 'licence.txt' }, '/'), 'r', 438)
+  local fd = vim.uv.fs_open(vim.fs.joinpath(storage_path, 'licence.txt'), 'r', 438)
   if fd == nil then
     return nil, storage_path
   end
-  local stat = assert(vim.loop.fs_fstat(fd))
-  local data = vim.loop.fs_read(fd, stat.size, 0)
-  assert(vim.loop.fs_close(fd))
+  local stat = assert(vim.uv.fs_fstat(fd))
+  local data = vim.uv.fs_read(fd, stat.size, 0)
+  assert(vim.uv.fs_close(fd))
   if data == nil then
     return data, storage_path
   else

@@ -1,51 +1,98 @@
 -- vim: set sw=0 ts=2 et :
 
+---@param path string
+---@param url string
+---@return string
+local function get_dir(path, url)
+  local full_path = vim.fs.normalize('$WORKSPACE/' .. path)
+  if vim.fn.isdirectory(full_path) ~= 0 then
+    return full_path
+  else
+    return url
+  end
+end
+
+---@class _ParserInfo
+---@field name string
+---@field url string
+---@field files string[]
+---@field filetype string
+---@field requires_grammar boolean|nil
+
+---@type table<string, _ParserInfo>
+local parser_info_table = {
+  c3 = {
+    name = 'tree-sitter-c3',
+    url = 'https://github.com/zwiemach/tree-sitter-c3',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    filetype = 'c3',
+  },
+  cabal = {
+    name = 'tree-sitter-cabal',
+    url = 'https://gitlab.com/magus/tree-sitter-cabal',
+    files = { 'src/parser.c', 'src/scanner.cc' },
+    filetype = 'cabal',
+  },
+  carp = {
+    name = 'tree-sitter-carp',
+    url = 'https://github.com/GrayJack/tree-sitter-carp',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    filetype = 'carp',
+  },
+  fsharp = {
+    name = 'tree-sitter-fsharp',
+    url = 'https://github.com/ionide/tree-sitter-fsharp',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    filetype = 'fsharp',
+  },
+  haxe = {
+    name = 'tree-sitter-haxe',
+    url = 'https://github.com/vantreeseba/tree-sitter-haxe',
+    files = { 'src/parser.c' },
+    filetype = 'haxe',
+  },
+  reason = {
+    name = 'tree-sitter-reason',
+    url = 'https://github.com/danielo515/tree-sitter-reason/',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    filetype = 'reason',
+  },
+  rescript = {
+    name = 'tree-sitter-rescript',
+    url = 'https://github.com/rescript-lang/tree-sitter-rescript',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    filetype = 'rescript',
+  },
+  standard_ml = {
+    name = 'tree-sitter-sml',
+    url = 'https://github.com/stonebuddha/tree-sitter-sml',
+    files = { 'src/parser.c', 'src/scanner.cc' },
+    filetype = 'sml',
+  },
+}
+
 return {
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/playground',
   },
   build = ':TSUpdate',
   config = function()
-    local parsers = require('nvim-treesitter.parsers')
+    local parsers = require('nvim-treesitter.parsers').get_parser_configs()
 
-    parsers.get_parser_configs().standard_ml = {
-      install_info = {
-        -- url = 'https://github.com/stonebuddha/tree-sitter-sml',
-        url = '~/Workspace/tree-sitter-sml',
-        files = { 'src/parser.c', 'src/scanner.cc' },
-      },
-      filetype = 'sml',
-    }
-
-    parsers.get_parser_configs().carp = {
-      install_info = {
-        -- url = 'https://github.com/GrayJack/tree-sitter-carp',
-        url = '~/Workspace/tree-sitter-carp',
-        files = { 'src/parser.c', 'src/scanner.c' },
-      },
-      filetype = 'carp',
-    }
-
-    parsers.get_parser_configs().rescript = {
-      install_info = {
-        -- url = 'https://github.com/nkrkv/tree-sitter-rescript',
-        url = '~/Workspace/tree-sitter-rescript',
-        files = { 'src/parser.c', 'src/scanner.c' },
-      },
-      filetype = 'rescript',
-    }
-
-    parsers.get_parser_configs().c3 = {
-      install_info = {
-        -- url = 'https://github.com/zwiemach/tree-sitter-c3',
-        url = '~/Workspace/tree-sitter-c3',
-        files = { 'src/parser.c' },
-      },
-      filetype = 'c3',
-    }
+    for name, info in pairs(parser_info_table) do
+      parsers[name] = {
+        install_info = {
+          url = get_dir(info.name, info.url),
+          files = info.files,
+          generate_requires_npm = info.requires_grammar,
+          requires_generate_from_grammar = info.requires_grammar,
+        },
+        filetype = info.filetype,
+        maintainers = {},
+      }
+    end
 
     require('nvim-treesitter.configs').setup({
       ensure_installed = { 'json', 'lua', 'query', 'vimdoc', 'vim' },
@@ -82,14 +129,6 @@ return {
             ['ic'] = '@class.inner',
           },
         },
-      },
-      playground = {
-        enable = true,
-      },
-      query_linter = {
-        enable = true,
-        use_virtual_text = true,
-        lint_events = { 'BufWrite', 'CursorHold' },
       },
     })
 
