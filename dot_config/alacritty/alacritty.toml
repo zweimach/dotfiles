@@ -31,8 +31,8 @@ style = "Bold"
 
 [font.normal]
 family = "FiraCode Nerd Font"
-style = "Regular"
+style = "Medium"
 
-[shell]
+[terminal.shell]
 args = ["new-session", "-A"]
 program = "tmux"

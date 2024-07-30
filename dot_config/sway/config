@@ -40,17 +40,19 @@ set $up k
 set $right l
 
 set $shell $SHELL
-set $term $TERMINAL
+set $term $TERMINAL --session default
 set $menu $MENU -S drun
 set $reader $READER
 set $browser $BROWSER
-set $explorer $TERMINAL -t $EXPLORER -e $EXPLORER
-set $editor $TERMINAL -t $EDITOR -e $EDITOR
+set $explorer $TERMINAL -T $EXPLORER $EXPLORER
+set $editor $TERMINAL -T $EDITOR $EDITOR
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ Output Config
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
+output * bg #383838 solid_color
+
 for_window [window_role="About"] floating enable
 for_window [title="TelegramDesktop"] floating enable
 for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
@@ -61,9 +63,12 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 # ┃ Idle Config
 # ┗━━━━━━━━━━━━━━━━━━━━━━━
 exec swayidle -w \
+    timeout 300 'brightnessctl s 25%-' \
+        resume 'brightnessctl s +25%' \
     timeout 600 'swaylock -f -c 000000' \
-    timeout 1200 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
+    timeout 1200 'swaymsg "output * power off"' \
+        resume 'swaymsg "output * power on"' \
+    timeout 1800 'systemctl suspend' \
     before-sleep 'swaylock -f -c 000000'
 
 
