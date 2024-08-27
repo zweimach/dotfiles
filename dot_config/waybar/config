@@ -15,9 +15,6 @@
   ],
   "modules-right": [
     "custom/left-arrow-dark",
-    "tray",
-    "custom/left-arrow-light",
-    "custom/left-arrow-dark",
     "network",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
@@ -65,11 +62,11 @@
     "tooltip": false
   },
   "pulseaudio": {
-    "format": "{icon} {volume}%",
+    "format": "{icon} {volume:3}%",
     "format-bluetooth": "{icon} {volume}%",
     "format-muted": "MUTE",
     "format-icons": {
-      "headphones": "",
+      "headphone": "",
       "default": ["", ""]
     },
     "scroll-step": 5,
@@ -78,7 +75,7 @@
   },
   "memory": {
     "interval": 5,
-    "format": "Mem {}%",
+    "format": "Mem {percentage:2}%",
     "tooltip": false
   },
   "cpu": {
@@ -92,18 +89,15 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity:2}%",
+    "format": "{icon} {capacity:4}%",
     "format-icons": ["", "", "", "", ""],
     "tooltip": false
   },
   "network": {
     "interface": "wlp*s0",
-    "format-wifi": " {signalStrength:2}% {essid}",
+    "format-wifi": " {signalStrength:3}% {essid}",
     "format-disconnected": "",
-    "max-length": 50,
+    "max-length": 30,
     "tooltip": false
-  },
-  "tray": {
-    "icon-size": 20
   }
 }

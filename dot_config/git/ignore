@@ -5,6 +5,7 @@
 .vim
 .rgignore
 .neoconf.json
+.null-ls-root
 compile_commands.json
 node_modules
 dist-newstyle
