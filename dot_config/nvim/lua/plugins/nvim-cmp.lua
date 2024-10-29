@@ -1,5 +1,7 @@
 -- vim: set sw=0 ts=2 et :
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
@@ -62,12 +64,10 @@ return {
           select = false,
         }),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-d>'] = cmp_action.luasnip_jump_forward(),
-        ['<C-u>'] = cmp_action.luasnip_jump_backward(),
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
-        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+        ['<Tab>'] = cmp_action.luasnip_jump_forward(),
+        ['<S-Tab>'] = cmp_action.luasnip_jump_backward(),
       }),
     })
 

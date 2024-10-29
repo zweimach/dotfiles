@@ -17,6 +17,7 @@ end
 ---@field url string
 ---@field files string[]
 ---@field filetype string
+---@field branch string|nil
 ---@field requires_grammar boolean|nil
 
 ---@type table<string, _ParserInfo>
@@ -30,7 +31,7 @@ local parser_info_table = {
   cabal = {
     name = 'tree-sitter-cabal',
     url = 'https://gitlab.com/magus/tree-sitter-cabal',
-    files = { 'src/parser.c', 'src/scanner.cc' },
+    files = { 'src/parser.c', 'src/scanner.c' },
     filetype = 'cabal',
   },
   carp = {
@@ -48,7 +49,7 @@ local parser_info_table = {
   haxe = {
     name = 'tree-sitter-haxe',
     url = 'https://github.com/vantreeseba/tree-sitter-haxe',
-    files = { 'src/parser.c' },
+    files = { 'src/parser.c', 'src/scanner.c' },
     filetype = 'haxe',
   },
   reason = {
@@ -57,16 +58,10 @@ local parser_info_table = {
     files = { 'src/parser.c', 'src/scanner.c' },
     filetype = 'reason',
   },
-  rescript = {
-    name = 'tree-sitter-rescript',
-    url = 'https://github.com/rescript-lang/tree-sitter-rescript',
-    files = { 'src/parser.c', 'src/scanner.c' },
-    filetype = 'rescript',
-  },
-  standard_ml = {
+  sml = {
     name = 'tree-sitter-sml',
-    url = 'https://github.com/stonebuddha/tree-sitter-sml',
-    files = { 'src/parser.c', 'src/scanner.cc' },
+    url = 'https://github.com/MatthewFluet/tree-sitter-sml',
+    files = { 'src/parser.c', 'src/scanner.c' },
     filetype = 'sml',
   },
 }
@@ -76,6 +71,7 @@ return {
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-context',
   },
   build = ':TSUpdate',
   config = function()
@@ -86,7 +82,7 @@ return {
         install_info = {
           url = get_dir(info.name, info.url),
           files = info.files,
-          generate_requires_npm = info.requires_grammar,
+          branch = info.branch or 'master',
           requires_generate_from_grammar = info.requires_grammar,
         },
         filetype = info.filetype,
@@ -132,6 +128,7 @@ return {
       },
     })
 
+    vim.treesitter.language.register('markdown', 'markdown.mdx')
     vim.treesitter.language.register('tsx', 'javascriptflow')
 
     vim.o.foldenable = false

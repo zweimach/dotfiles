@@ -1,5 +1,8 @@
+-- vim: set sw=0 ts=2 et :
+
 local M = {}
 
+---@param servers string[]
 function M.disallow_format(servers)
   ---@param client vim.lsp.Client
   return function(client)
@@ -9,8 +12,10 @@ end
 
 function M.get_editor_config()
   local defaults = {
+    codeLens = false,
     documentHighlight = { true, {} },
     formatOnSave = false,
+    inlayHints = false,
     semanticHighlighting = false,
     showCompletionSource = false,
   }
@@ -38,9 +43,10 @@ function M.get_lsp_config()
     denols = {
       ['deno.enable'] = false,
     },
+    eslint = {},
     rescriptls = {},
     volar = {
-      ['vue.hybridMode'] = false,
+      ['vue.server.hybridMode'] = false,
     },
   }
   local neoconf = require('neoconf')
@@ -74,13 +80,19 @@ end
 ---@return boolean
 function M.is_vue_hybrid_mode()
   local lspconfig = M.get_lsp_config()
-  return lspconfig.volar['vue.hybridMode']
+  return lspconfig.volar['vue.server.hybridMode']
+end
+
+function M.get_eslint_lsp_config()
+  local utils = require('utils')
+  local lspconfig = M.get_lsp_config()
+  local nested_eslint_lsp = utils.tbl_nest(lspconfig.eslint)
+  return vim.tbl_get(nested_eslint_lsp, 'eslint') or {}
 end
 
 function M.get_rescriptls_config()
   local utils = require('utils')
   local lspconfig = M.get_lsp_config()
-  -- return lspconfig.rescriptls['rescript.settings']
   local nested_rescriptls = utils.tbl_nest(lspconfig.rescriptls)
   return vim.tbl_get(nested_rescriptls, 'rescript', 'settings') or {}
 end

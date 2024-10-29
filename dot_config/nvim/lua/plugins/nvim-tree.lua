@@ -1,5 +1,7 @@
 -- vim: set sw=0 ts=2 et :
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'nvim-tree/nvim-tree.lua',
   dependencies = {

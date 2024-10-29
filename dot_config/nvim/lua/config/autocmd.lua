@@ -2,12 +2,11 @@
 
 vim.api.nvim_create_user_command('Update', function()
   require('lazy').sync({ wait = true })
-  vim.cmd.MasonUpdate()
 end, { nargs = 0 })
 
-local augroup = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+local yank_augroup = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-  group = augroup,
+  group = yank_augroup,
   callback = function()
     vim.highlight.on_yank({
       higroup = 'HighlightedyankRegion',

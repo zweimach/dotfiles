@@ -1,5 +1,7 @@
 -- vim: set sw=0 ts=2 et :
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x',

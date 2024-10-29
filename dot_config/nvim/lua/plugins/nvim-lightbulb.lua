@@ -1,5 +1,7 @@
 -- vim: set sw=0 ts=2 et :
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'kosayoda/nvim-lightbulb',
   config = function()
@@ -7,7 +9,7 @@ return {
 
     require('nvim-lightbulb').setup({
       autocmd = { enabled = true },
-      sign = { enabled = true, text = '' },
+      sign = { enabled = true, text = '' },
     })
   end,
 }

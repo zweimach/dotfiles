@@ -1,27 +1,46 @@
 -- vim: set sw=0 ts=2 et :
 
+---@module 'lazy'
+---@type LazySpec
 return {
   'VonHeikemen/lsp-zero.nvim',
   dependencies = {
     'neovim/nvim-lspconfig',
     'b0o/schemastore.nvim',
+    'lukas-reineke/lsp-format.nvim',
   },
   branch = 'v3.x',
   config = function()
     local lsp_zero = require('lsp-zero')
+    local lsp_format = require('lsp-format')
     local lspconfig = require('lspconfig')
     local telescope_builtin = require('telescope.builtin')
     local config = require('utils.config')
 
     local augroup = vim.api.nvim_create_augroup('LspZeroSetup', { clear = true })
 
+    ---@param client vim.lsp.Client
+    ---@param bufnr integer
     lsp_zero.on_attach(function(client, bufnr)
       local opts = { buffer = bufnr, noremap = true, silent = true }
-      local capabilities = client.server_capabilities
       local editor_config = config.get_editor_config()
 
       if not editor_config.semanticHighlighting then
         client.server_capabilities.semanticTokensProvider = nil
+      end
+
+      local completion_disabled = {
+        'psalm',
+      }
+      if vim.tbl_contains(completion_disabled, client.name) then
+        client.server_capabilities.completionProvider = nil
+      end
+
+      local hover_disabled = {
+        'psalm',
+      }
+      if vim.tbl_contains(hover_disabled, client.name) then
+        client.server_capabilities.hoverProvider = nil
       end
 
       local function map(mode, keys, func, desc)
@@ -69,7 +88,7 @@ return {
       map('n', '<Leader>wd', telescope_builtin.diagnostics, '[W]orkspace [D]iagnostics')
 
       local document_highlight_enabled = config.document_highlight_enabled(editor_config, vim.bo[bufnr].filetype)
-      if document_highlight_enabled and capabilities and capabilities.documentHighlightProvider then
+      if document_highlight_enabled and client.supports_method('textDocument/documentHighlight') then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           group = augroup,
           buffer = bufnr,
@@ -104,21 +123,23 @@ return {
         end,
       })
 
+      local formatting_enabled = config.disallow_format({
+        'cssls',
+        'html',
+        'intelephense',
+        'jsonls',
+        'lemminx',
+        'lua_ls',
+        'ts_ls',
+        'volar',
+        'yamlls',
+      })
       local function format()
         vim.lsp.buf.format({
-          async = false,
+          async = true,
           bufnr = bufnr,
           timeout_ms = 10000,
-          filter = config.disallow_format({
-            'cssls',
-            'html',
-            'intelephense',
-            'jsonls',
-            'lua_ls',
-            'tsserver',
-            'volar',
-            'yamlls',
-          }),
+          filter = formatting_enabled,
         })
       end
 
@@ -128,11 +149,17 @@ return {
       map('x', '<F3>', format, 'Document Format')
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, { desc = 'Format current buffer with LSP' })
 
-      if editor_config.formatOnSave and capabilities and capabilities.documentFormattingProvider then
-        vim.api.nvim_create_autocmd('BufWritePre', {
+      if editor_config.formatOnSave and client.supports_method('textDocument/formatting') and formatting_enabled(client) then
+        lsp_format.on_attach(client)
+      end
+
+      map('n', '<Leader>cl', vim.lsp.codelens.run, '[C]ode [L]ens')
+
+      if editor_config.codeLens and client.supports_method('textDocument/codeLens') then
+        vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter', 'CursorHold', 'InsertLeave' }, {
           group = augroup,
           buffer = bufnr,
-          callback = format,
+          callback = vim.lsp.codelens.refresh,
         })
       end
 
@@ -152,17 +179,18 @@ return {
     lsp_zero.setup_servers({
       'gleam',
       'metals',
+      'nixd',
       'ocamllsp',
-      'racket_langserver',
+      'ruff',
       'zls',
     })
+    ---@diagnostic disable: missing-fields
     lspconfig.flow.setup({ filetypes = { 'javascript', 'javascriptreact', 'javascriptflow' } })
     lspconfig.hls.setup({ filetypes = { 'haskell', 'lhaskell', 'cabal' } })
+    lspconfig.racket_langserver.setup({ filetypes = { 'racket' } })
 
-    if config.is_deno_enabled() then
-      lspconfig.denols.setup({})
-      lspconfig.tsserver.setup({ autostart = false })
-    end
+    local eslint_lsp_config = config.get_eslint_lsp_config()
+    lspconfig.eslint.setup({ settings = eslint_lsp_config })
 
     local rescriptls_config = config.get_rescriptls_config()
     lspconfig.rescriptls.setup({
@@ -185,6 +213,9 @@ return {
         },
       },
     })
+    lspconfig.typos_lsp.setup({
+      init_options = { diagnosticSeverity = 'Hint' },
+    })
 
     local licence_key, global_storage_path = config.get_intelephense_config()
     lspconfig.intelephense.setup({
@@ -195,12 +226,15 @@ return {
     })
 
     local vue_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
-    if config.is_vue_hybrid_mode() then
+    if config.is_deno_enabled() then
+      lspconfig.denols.setup({})
+      lspconfig.ts_ls.setup({ autostart = false })
+    elseif config.is_vue_hybrid_mode() then
       local mason_registry = require('mason-registry')
       local vue_language_server = mason_registry.get_package('vue-language-server')
       local install_path = vue_language_server:get_install_path()
       local location = string.format('%s/node_modules/%s/node_modules', install_path, '@vue/language-server')
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         filetypes = vue_filetypes,
         init_options = {
           plugins = {
@@ -213,7 +247,7 @@ return {
         },
       })
     else
-      lspconfig.tsserver.setup({ autostart = false })
+      lspconfig.ts_ls.setup({ autostart = false })
       lspconfig.volar.setup({
         filetypes = vue_filetypes,
         init_options = {
@@ -223,5 +257,6 @@ return {
         },
       })
     end
+    ---@diagnostic enable: missing-fields
   end,
 }

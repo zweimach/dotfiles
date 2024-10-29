@@ -9,14 +9,27 @@
     }
   },
   "editor": {
+    "codeLens": false,
     "documentHighlight": [true, { "cabal": false }],
     "formatOnSave": true,
-    "semanticHighlighting": true,
+    "inlayHints": false,
+    "semanticHighlighting": false,
     "showCompletionSource": false
   },
   "lspconfig": {
     "denols": {
-      "deno.enable": false
+      "deno.enable": false,
+      "deno.inlayHints": {
+        "parameterNames": { "enabled": "all", "suppressWhenArgumentMatchesName": true },
+        "parameterTypes": { "enabled": true },
+        "variableTypes": { "enabled": true, "suppressWhenTypeMatchesName": true },
+        "propertyDeclarationTypes": { "enabled": true },
+        "functionLikeReturnTypes": { "enable": true },
+        "enumMemberValues": { "enabled": true }
+      }
+    },
+    "eslint": {
+      "eslint.codeAction.showDocumentation": { "enable": false }
     },
     "hls": {
       "haskell.cabalFormattingProvider": "cabal-fmt",
@@ -33,7 +46,13 @@
       "xml.format.enabled": false,
       "xml.server.workDir": "~/.cache/lemminx"
     },
+    "lua_ls": {
+      "Lua.hint.arrayIndex": "Disable",
+      "Lua.hint.enable": true,
+      "Lua.hint.paramName": "Literal"
+    },
     "rescriptls": {
+      "rescript.settings.askToStartBuild": true,
       "rescript.settings.autoRunCodeAnalysis": true,
       "rescript.settings.codeLens": true,
       "rescript.settings.incrementalTypechecking.acrossFiles": true,
@@ -60,7 +79,7 @@
       ]
     },
     "volar": {
-      "vue.hybridMode": false
+      "vue.server.hybridMode": false
     }
   }
 }

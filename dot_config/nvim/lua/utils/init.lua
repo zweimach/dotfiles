@@ -1,3 +1,5 @@
+-- vim: set sw=0 ts=2 et :
+
 local M = {}
 
 ---@param flat_table table<string, unknown>
