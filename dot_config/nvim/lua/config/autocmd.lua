@@ -16,6 +16,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+local config_augrup = vim.api.nvim_create_augroup('UserConfig', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
+  group = config_augrup,
+  callback = function()
+    local current_mode = vim.api.nvim_get_mode()
+    if vim.opt.number:get() and current_mode.mode ~= 'i' then
+      vim.opt.relativenumber = true
+    end
+  end,
+  pattern = '*',
+})
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+  group = config_augrup,
+  callback = function()
+    if vim.opt.number:get() then
+      vim.opt.relativenumber = false
+    end
+  end,
+  pattern = '*',
+})
+
 local function flow(default)
   return function(_, bufnr)
     local lines = vim.api.nvim_buf_get_lines(bufnr, 1, 10, false)
