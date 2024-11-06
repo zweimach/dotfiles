@@ -8,6 +8,7 @@ return {
   'tpope/vim-obsession',
   'stevearc/dressing.nvim',
   { 'luukvbaal/stabilize.nvim', config = true },
+  { 'NMAC427/guess-indent.nvim', config = true },
 
   {
     'kylechui/nvim-surround',
