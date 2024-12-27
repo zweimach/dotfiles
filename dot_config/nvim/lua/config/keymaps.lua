@@ -3,7 +3,6 @@
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
-map('n', '<A-g>', '<Cmd>tab Git<CR>', opts)
 map('n', '<C-j>', '<Cmd>bnext<CR>', opts)
 map('n', '<A-j>', '<Cmd>tabnext<CR>', opts)
 map('n', '<C-k>', '<Cmd>bprev<CR>', opts)

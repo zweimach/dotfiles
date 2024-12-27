@@ -4,12 +4,22 @@
 ---@type LazySpec
 return {
   'nvim-lua/plenary.nvim',
-  'tpope/vim-fugitive',
   'tpope/vim-obsession',
   'stevearc/dressing.nvim',
   { 'luukvbaal/stabilize.nvim', config = true },
   { 'NMAC427/guess-indent.nvim', config = true },
-
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = true,
+    keys = {
+      { '<A-g>', mode = { 'n' }, '<Cmd>Neogit<CR>', noremap = true, desc = 'Neogit' },
+    },
+  },
   {
     'm4xshen/hardtime.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
