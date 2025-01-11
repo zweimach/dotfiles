@@ -10,6 +10,7 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'saadparwaiz1/cmp_luasnip',
+    'PaterJason/cmp-conjure',
     'onsails/lspkind.nvim',
   },
   config = function()
@@ -31,6 +32,7 @@ return {
       },
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'conjure' },
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'path' },
@@ -45,6 +47,7 @@ return {
           menu = {
             buffer = '[Buffer]',
             cmdline = '[Command]',
+            conjure = '[Conjure]',
             luasnip = '[Snippet]',
             nvim_lsp = '[LSP]',
             path = '[Path]',

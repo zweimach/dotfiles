@@ -40,12 +40,6 @@ local parser_info_table = {
     files = { 'src/parser.c', 'src/scanner.c' },
     filetype = 'carp',
   },
-  fsharp = {
-    name = 'tree-sitter-fsharp',
-    url = 'https://github.com/ionide/tree-sitter-fsharp',
-    files = { 'src/parser.c', 'src/scanner.c' },
-    filetype = 'fsharp',
-  },
   haxe = {
     name = 'tree-sitter-haxe',
     url = 'https://github.com/vantreeseba/tree-sitter-haxe',
@@ -72,6 +66,7 @@ return {
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-context',
+    'andymass/vim-matchup',
   },
   build = ':TSUpdate',
   config = function()
@@ -112,6 +107,10 @@ return {
           scope_incremental = '<C-s>',
         },
       },
+      matchup = {
+        enable = true,
+        disable_virtual_text = true,
+      },
       textobjects = {
         select = {
           enable = true,
@@ -134,5 +133,9 @@ return {
     vim.o.foldenable = false
     vim.o.foldmethod = 'expr'
     vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+    vim.g.matchup_matchparen_deferred = true
+    vim.g.matchup_matchparen_hi_surround_always = true
+    vim.g.matchup_matchparen_offscreen = { method = 'popup' }
   end,
 }
