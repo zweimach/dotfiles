@@ -10,6 +10,7 @@ return {
   },
   config = function()
     local null_ls = require('null-ls')
+    local config = require('utils.config')
 
     null_ls.setup({
       sources = {
@@ -19,7 +20,11 @@ return {
             return utils.root_has_file('phpstan.neon')
           end,
         }),
-        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.prettier.with({
+          condition = function()
+            return not config.is_biome_enabled()
+          end,
+        }),
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
       },

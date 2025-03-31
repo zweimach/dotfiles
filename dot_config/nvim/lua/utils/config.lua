@@ -40,6 +40,9 @@ end
 
 function M.get_lsp_config()
   local defaults = {
+    biome = {
+      ['biome.enable'] = false,
+    },
     denols = {
       ['deno.enable'] = false,
     },
@@ -69,6 +72,12 @@ function M.get_intelephense_config()
   else
     return vim.trim(data), storage_path
   end
+end
+
+---@return boolean
+function M.is_biome_enabled()
+  local lspconfig = M.get_lsp_config()
+  return lspconfig.biome['biome.enable']
 end
 
 ---@return boolean

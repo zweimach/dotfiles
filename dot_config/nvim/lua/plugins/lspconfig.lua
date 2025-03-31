@@ -9,7 +9,7 @@ return {
     'b0o/schemastore.nvim',
     'lukas-reineke/lsp-format.nvim',
   },
-  branch = 'v3.x',
+  branch = 'v4.x',
   config = function()
     local lsp_zero = require('lsp-zero')
     local lsp_format = require('lsp-format')
@@ -21,7 +21,7 @@ return {
 
     ---@param client vim.lsp.Client
     ---@param bufnr integer
-    lsp_zero.on_attach(function(client, bufnr)
+    local function on_attach(client, bufnr)
       local opts = { buffer = bufnr, noremap = true, silent = true }
       local editor_config = config.get_editor_config()
 
@@ -124,6 +124,7 @@ return {
       })
 
       local formatting_enabled = config.disallow_format({
+        'bashls',
         'cssls',
         'html',
         'intelephense',
@@ -167,7 +168,21 @@ return {
 
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, opts_)
       vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, opts_)
-    end)
+    end
+
+    vim.lsp.handlers['client/registerCapability'] = (function(overridden)
+      return function(err, res, ctx)
+        local result = overridden(err, res, ctx)
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if not client then
+          return
+        end
+        on_attach(client, vim.api.nvim_get_current_buf())
+        return result
+      end
+    end)(vim.lsp.handlers['client/registerCapability'])
+
+    lsp_zero.on_attach(on_attach)
 
     lsp_zero.set_sign_icons({
       error = '✘',
@@ -188,9 +203,6 @@ return {
     lspconfig.flow.setup({ filetypes = { 'javascript', 'javascriptreact', 'javascriptflow' } })
     lspconfig.hls.setup({ filetypes = { 'haskell', 'lhaskell', 'cabal' } })
     lspconfig.racket_langserver.setup({ filetypes = { 'racket' } })
-
-    local eslint_lsp_config = config.get_eslint_lsp_config()
-    lspconfig.eslint.setup({ settings = eslint_lsp_config })
 
     local rescriptls_config = config.get_rescriptls_config()
     lspconfig.rescriptls.setup({
@@ -224,6 +236,14 @@ return {
         globalStoragePath = global_storage_path,
       },
     })
+
+    local eslint_lsp_config = config.get_eslint_lsp_config()
+    if config.is_biome_enabled() then
+      lspconfig.biome.setup({})
+      lspconfig.eslint.setup({ autostart = false })
+    else
+      lspconfig.eslint.setup({ settings = eslint_lsp_config })
+    end
 
     local vue_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
     if config.is_deno_enabled() then

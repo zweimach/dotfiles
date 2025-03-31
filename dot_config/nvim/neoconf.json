@@ -17,6 +17,9 @@
     "showCompletionSource": false
   },
   "lspconfig": {
+    "biome": {
+      "biome.enable": false
+    },
     "denols": {
       "deno.enable": false,
       "deno.inlayHints": {
@@ -79,7 +82,7 @@
       ]
     },
     "volar": {
-      "vue.server.hybridMode": false
+      "vue.server.hybridMode": true
     }
   }
 }
