@@ -14,8 +14,8 @@ if type rg &>/dev/null; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
 
-test -r /usr/share/fzf/key-bindings.bash && source /usr/share/fzf/key-bindings.bash >/dev/null 2>/dev/null || true
-test -r /usr/share/fzf/completion.bash && source /usr/share/fzf/completion.bash >/dev/null 2>/dev/null || true
+test -r /usr/share/fzf/key-bindings.bash && source /usr/share/fzf/key-bindings.bash >/dev/null 2>/dev/null
+test -r /usr/share/fzf/completion.bash && source /usr/share/fzf/completion.bash >/dev/null 2>/dev/null
 
 fzf-workspace-widget() {
 	local cmd dir _dir
@@ -55,6 +55,7 @@ fi
 command -v starship &>/dev/null && eval "$(starship init bash)"
 command -v direnv &>/dev/null && eval "$(direnv hook bash)"
 command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
+command -v mise &>/dev/null && eval "$(mise activate bash)"
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━
 # ┃ GPG
@@ -112,8 +113,20 @@ if command -v exa &>/dev/null; then
 	alias ls=exa
 fi
 
+if command -v zoxide &>/dev/null; then
+	alias cd=z
+fi
+
 if command -v btm &>/dev/null; then
 	alias htop='btm -b'
+fi
+
+if command -v php &>/dev/null; then
+	alias phpa='php artisan'
+fi
+
+if command -v node &>/dev/null; then
+	alias nor='node --run'
 fi
 
 if [[ -n $WORKSPACE ]]; then
