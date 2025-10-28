@@ -3,26 +3,32 @@
 ---@module 'lazy'
 ---@type LazySpec
 return {
-  { 'williamboman/mason.nvim', config = true },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
+    version = 'v2.x',
+    ---@module 'mason'
+    ---@type MasonSettings
+    opts = {
+      PATH = 'prepend',
+    },
+  },
+  {
+    'mason-org/mason-lspconfig.nvim',
+    version = 'v2.x',
     dependencies = {
       'neovim/nvim-lspconfig',
     },
-    config = function()
-      local lsp_zero = require('lsp-zero')
-
-      require('mason-lspconfig').setup({
-        ensure_installed = { 'jsonls', 'lua_ls' },
-        automatic_installation = false,
-        handlers = {
-          lsp_zero.default_setup,
-        },
-      })
-    end,
+    ---@module 'mason-lspconfig'
+    ---@type MasonLspconfigSettings
+    opts = {
+      ensure_installed = { 'jsonls', 'lua_ls' },
+      automatic_installation = false,
+      automatic_enable = false,
+    },
   },
   {
     'jay-babu/mason-null-ls.nvim',
+    version = 'v2.x',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'nvimtools/none-ls.nvim',

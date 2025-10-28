@@ -37,9 +37,13 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'
   pattern = '*',
 })
 
+---@param default string
 local function flow(default)
+  ---@param _ string
+  ---@param bufnr integer
+  ---@return string
   return function(_, bufnr)
-    local lines = vim.api.nvim_buf_get_lines(bufnr, 1, 10, false)
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 10, false)
     local content = table.concat(lines, '')
     if string.match(content, [[@flow]]) then
       return 'javascriptflow'
@@ -47,6 +51,25 @@ local function flow(default)
       return default
     end
   end
+end
+
+---@param _ string
+---@param bufnr integer
+---@return string
+local function scheme(_, bufnr)
+  local guile_shebang = vim.regex([[\v^#!.*[Gg]uile]])
+  for idx = 0, 5 do
+    if guile_shebang:match_line(bufnr, idx) then
+      return 'scheme.guile'
+    end
+  end
+  local save_cursor = vim.fn.getcurpos()
+  vim.fn.cursor(1, 1)
+  if vim.fn.search([[\v\(\s*(define-module|use-modules)\s*\(]], 'c', 0, 1000) ~= 0 then
+    return 'scheme.guile'
+  end
+  vim.fn.setpos('.', save_cursor)
+  return 'scheme'
 end
 
 vim.filetype.add({
@@ -68,10 +91,12 @@ vim.filetype.add({
     rei = 'reason',
     roc = 'roc',
     sig = 'sml',
-    sld = 'scheme',
-    sls = 'scheme',
+    scm = scheme,
+    sld = scheme,
+    sls = scheme,
   },
   filename = {
+    ['.env'] = 'conf',
     ['rebar.config'] = 'erlang',
   },
 })

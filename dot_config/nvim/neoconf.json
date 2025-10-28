@@ -81,8 +81,12 @@
         "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
       ]
     },
-    "volar": {
-      "vue.server.hybridMode": true
+    "vtsls": {
+      "javascript.suggest.names": false,
+      "vtsls.experimental.completion.enableServerSideFuzzyMatch": true
+    },
+    "vue_ls": {
+      "vue.enable": true
     }
   }
 }

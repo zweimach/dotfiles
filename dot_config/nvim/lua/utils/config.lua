@@ -48,8 +48,8 @@ function M.get_lsp_config()
     },
     eslint = {},
     rescriptls = {},
-    volar = {
-      ['vue.server.hybridMode'] = false,
+    vue_ls = {
+      ['vue.enable'] = false,
     },
   }
   local neoconf = require('neoconf')
@@ -87,9 +87,9 @@ function M.is_deno_enabled()
 end
 
 ---@return boolean
-function M.is_vue_hybrid_mode()
+function M.is_vue_enabled()
   local lspconfig = M.get_lsp_config()
-  return lspconfig.volar['vue.server.hybridMode']
+  return lspconfig.vue_ls['vue.enable']
 end
 
 function M.get_eslint_lsp_config()
