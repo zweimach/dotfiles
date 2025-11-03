@@ -22,7 +22,6 @@ vim.opt.mouse = 'a'
 vim.opt.mousemodel = 'extend'
 vim.opt.signcolumn = 'yes'
 vim.opt.shortmess:append('c')
-vim.opt.clipboard:append('unnamedplus')
 vim.opt.completeopt:append('menu')
 vim.opt.completeopt:append('menuone')
 vim.opt.completeopt:append('noselect')
@@ -51,3 +50,7 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
+
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)

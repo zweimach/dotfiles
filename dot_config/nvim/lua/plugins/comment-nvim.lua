@@ -6,4 +6,8 @@ return {
   'numToStr/Comment.nvim',
   event = { 'BufReadPost', 'BufNewFile' },
   config = true,
+  init = function()
+    local ft = require('Comment.ft')
+    ft.set('ninja', '#%s')
+  end,
 }

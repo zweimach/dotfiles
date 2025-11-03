@@ -41,13 +41,16 @@ return {
 
     local opts = { noremap = true, silent = true }
 
+    vim.keymap.set('n', '<Leader> ', builtin.resume, opts)
     vim.keymap.set('n', '<C-p>', function()
       builtin.find_files({ hidden = true })
     end, opts)
     vim.keymap.set('n', '<A-o>', function()
       builtin.buffers({ ignore_current_buffer = true })
     end, opts)
-    vim.keymap.set('n', '<A-r>', builtin.live_grep, opts)
+    vim.keymap.set('n', '<A-r>', function()
+      builtin.live_grep({ hidden = true })
+    end, opts)
     vim.keymap.set('n', '<A-t>', builtin.grep_string, opts)
     vim.keymap.set('n', '<A-c>', builtin.command_history, opts)
     vim.keymap.set('n', '<A-h>', builtin.help_tags, opts)

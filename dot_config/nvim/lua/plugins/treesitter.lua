@@ -62,7 +62,7 @@ local parser_info_table = {
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  event = { 'BufReadPost', 'BufNewFile' },
+  lazy = false,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-context',
@@ -109,7 +109,7 @@ return {
       },
       matchup = {
         enable = true,
-        disable_virtual_text = true,
+        disable = { 'c', 'cpp', 'rust' },
       },
       textobjects = {
         select = {
@@ -137,5 +137,6 @@ return {
     vim.g.matchup_matchparen_deferred = true
     vim.g.matchup_matchparen_hi_surround_always = true
     vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+    vim.g.matchup_treesitter_disable_virtual_text = true
   end,
 }

@@ -7,7 +7,15 @@ return {
   'tpope/vim-obsession',
   'stevearc/dressing.nvim',
   { 'luukvbaal/stabilize.nvim', config = true },
-  { 'NMAC427/guess-indent.nvim', config = true },
+  {
+    'NMAC427/guess-indent.nvim',
+    ---@module 'guess-indent'
+    ---@type GuessIndentConfig
+    opts = {
+      auto_cmd = true,
+      override_editorconfig = true,
+    },
+  },
   {
     'NeogitOrg/neogit',
     dependencies = {

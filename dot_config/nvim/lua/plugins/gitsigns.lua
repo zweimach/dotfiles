@@ -10,7 +10,7 @@ return {
     current_line_blame_opts = {
       delay = 500,
     },
-    update_debounce = 250,
+    update_debounce = 500,
     max_file_length = 10000,
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
